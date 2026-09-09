@@ -1,0 +1,32 @@
+{
+  "id": "donald-trump-2018-syria-address",
+  "title": "Address to the Nation on Syria",
+  "speaker": "Donald J. Trump",
+  "date": "2018-04-13",
+  "location": "Washington, D.C.",
+  "language": "en-US",
+  "durationSeconds": 460.9,
+  "transcript": {
+    "file": "transcript-from-captions.md",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:President_Trump_Delivers_an_Address_to_the_Nation_(April_14,_2018).webm",
+    "sourcePublisher": "Wikimedia Commons captions",
+    "kind": "caption-transcript",
+    "paragraphCount": null
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://commons.wikimedia.org/w/api.php?action=timedtext&title=File%3APresident%20Trump%20Delivers%20an%20Address%20to%20the%20Nation%20%28April%2014%2C%202018%29.webm&lang=en&trackformat=vtt&format=json",
+    "sourceVideoUrl": "https://commons.wikimedia.org/wiki/File:President_Trump_Delivers_an_Address_to_the_Nation_(April_14,_2018).webm",
+    "cueCount": 126,
+    "segmentCount": 50
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 7375630,
+    "sha256": "127e29e24cf82365dfb291081cbd99560408b967acd48b92c6e05ee9c221cf6e",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:President_Trump_Delivers_an_Address_to_the_Nation_(April_14,_2018).webm",
+    "derivativeUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/50/President_Trump_Delivers_an_Address_to_the_Nation_%28April_14%2C_2018%29.webm/President_Trump_Delivers_an_Address_to_the_Nation_%28April_14%2C_2018%29.webm.240p.vp9.webm",
+    "license": "Public domain"
+  }
+}

@@ -17,7 +17,16 @@ import {
 } from 'lucide-react'
 import trumpAudioUrl from '../content/donald-trump/2017-inaugural-address/audio.mp3?url'
 import trumpLessonData from '../content/donald-trump/2017-inaugural-address/lesson.json'
+import trumpMetadata from '../content/donald-trump/2017-inaugural-address/metadata.json'
 import trumpTranslations from '../content/donald-trump/2017-inaugural-address/translations-zh-CN.json'
+import syriaAudioUrl from '../content/donald-trump/2018-syria-address/audio.mp3?url'
+import syriaLessonData from '../content/donald-trump/2018-syria-address/lesson.json'
+import syriaMetadata from '../content/donald-trump/2018-syria-address/metadata.json'
+import syriaTranslations from '../content/donald-trump/2018-syria-address/translations-zh-CN.json'
+import nationAudioUrl from '../content/donald-trump/2020-address-to-the-nation/audio.mp3?url'
+import nationLessonData from '../content/donald-trump/2020-address-to-the-nation/lesson.json'
+import nationMetadata from '../content/donald-trump/2020-address-to-the-nation/metadata.json'
+import nationTranslations from '../content/donald-trump/2020-address-to-the-nation/translations-zh-CN.json'
 
 type Segment = {
   id: number
@@ -27,16 +36,51 @@ type Segment = {
   translation: string
 }
 
-const lesson = {
-  ...trumpLessonData,
-  audioUrl: trumpAudioUrl,
-  segments: trumpLessonData.segments.map((segment) => ({
-    ...segment,
-    translation: (trumpTranslations.translations as Record<string, string>)[String(segment.id)] || '',
-  })) as Segment[],
-  audioSourceUrl: "https://commons.wikimedia.org/wiki/File:President_Donald_Trump%27s_First_Inaugural_Address_-_January_20,_2017.wav",
-  captionSourceUrl: "https://commons.wikimedia.org/wiki/File:President_Trump%27s_Inaugural_Address.webm",
+type Lesson = {
+  id: string
+  title: string
+  speaker: string
+  category: string
+  level: string
+  minutes: number
+  year: number
+  sourceUrl: string
+  sourceKind: string
+  audioUrl: string
+  audioSourceUrl: string
+  captionSourceUrl: string
+  durationSeconds: number
+  segments: Segment[]
 }
+
+function createLesson(
+  lessonData: Omit<Lesson, 'year' | 'sourceKind' | 'audioUrl' | 'audioSourceUrl' | 'captionSourceUrl' | 'durationSeconds' | 'segments'> & { segments: Segment[] },
+  metadata: { date: string; durationSeconds: number; transcript: { kind: string }; audio: { sourceUrl: string }; captions: { sourceVideoUrl: string } },
+  translations: { translations: Record<string, string> },
+  audioUrl: string,
+): Lesson {
+  return {
+    ...lessonData,
+    year: Number(metadata.date.slice(0, 4)),
+    sourceKind: metadata.transcript.kind,
+    audioUrl,
+    audioSourceUrl: metadata.audio.sourceUrl,
+    captionSourceUrl: metadata.captions.sourceVideoUrl,
+    durationSeconds: metadata.durationSeconds,
+    segments: lessonData.segments.map((segment) => ({
+      ...segment,
+      translation: (translations.translations as Record<string, string>)[String(segment.id)] || '',
+    })) as Segment[],
+  }
+}
+
+const lessons: Lesson[] = [
+  createLesson(trumpLessonData, trumpMetadata, trumpTranslations, trumpAudioUrl),
+  createLesson(syriaLessonData, syriaMetadata, syriaTranslations, syriaAudioUrl),
+  createLesson(nationLessonData, nationMetadata, nationTranslations, nationAudioUrl),
+]
+
+const totalSegments = lessons.reduce((total, lesson) => total + lesson.segments.length, 0)
 
 const speeds = [0.75, 0.85, 1, 1.25]
 
@@ -60,21 +104,24 @@ function findActiveSegment(segments: Segment[], currentTime: number) {
 }
 
 function App() {
+  const [lessonIndex, setLessonIndex] = useState(0)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
   const [speed, setSpeed] = useState(0.85)
   const [volume, setVolume] = useState(0.82)
   const [isMuted, setIsMuted] = useState(false)
-  const [isLiked, setIsLiked] = useState(false)
+  const [likedLessons, setLikedLessons] = useState<Record<string, boolean>>({})
   const [isRepeat, setIsRepeat] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const lyricsViewportRef = useRef<HTMLDivElement | null>(null)
   const lyricLineRefs = useRef<(HTMLButtonElement | null)[]>([])
+  const lesson = lessons[lessonIndex]
+  const isLiked = Boolean(likedLessons[lesson.id])
 
   const activeIndex = useMemo(
     () => findActiveSegment(lesson.segments, currentTime),
-    [currentTime],
+    [currentTime, lesson.segments],
   )
 
   useEffect(() => {
@@ -82,6 +129,8 @@ function App() {
     audio.preload = 'metadata'
     audio.playbackRate = speed
     audio.volume = volume
+    audio.muted = isMuted
+    audio.loop = isRepeat
 
     const updateTime = () => setCurrentTime(audio.currentTime)
     const updateDuration = () => setDuration(audio.duration)
@@ -91,6 +140,11 @@ function App() {
     audio.addEventListener('loadedmetadata', updateDuration)
     audio.addEventListener('ended', stopPlaying)
     audioRef.current = audio
+    setIsPlaying(false)
+    setCurrentTime(0)
+    setDuration(0)
+    lyricLineRefs.current = []
+    lyricsViewportRef.current?.scrollTo({ top: 0 })
 
     return () => {
       audio.pause()
@@ -98,7 +152,7 @@ function App() {
       audio.removeEventListener('loadedmetadata', updateDuration)
       audio.removeEventListener('ended', stopPlaying)
     }
-  }, [])
+  }, [lesson.audioUrl])
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = speed
@@ -148,7 +202,7 @@ function App() {
   const seek = (time: number, autoplay = false) => {
     const audio = audioRef.current
     if (!audio) return
-    audio.currentTime = Math.max(0, Math.min(time, duration || 1008.652))
+    audio.currentTime = Math.max(0, Math.min(time, duration || lesson.durationSeconds))
     setCurrentTime(audio.currentTime)
     if (autoplay) void play()
   }
@@ -163,27 +217,53 @@ function App() {
     setSpeed(speeds[(currentIndex + 1) % speeds.length])
   }
 
+  const selectLesson = (index: number) => {
+    if (index === lessonIndex) return
+    setLessonIndex(index)
+  }
+
   return (
     <div className="player-shell">
       <aside className="sidebar">
         <div className="brand"><span className="brand-mark"><AudioLines size={19} /></span><span>ECHO</span></div>
         <div className="side-nav"><div className="active"><Headphones size={19} /><span>正在播放</span></div></div>
         <div className="playlist-heading"><span>当前素材</span></div>
-        <div className="playlist-item active">
-          <img src="/speaker-stage.jpg" alt="舞台麦克风" />
-          <span><strong>The Inaugural Address</strong><small>Donald J. Trump</small></span>
-          <i />
+        <div className="playlist">
+          {lessons.map((item, index) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`playlist-item ${index === lessonIndex ? 'active' : ''}`}
+              onClick={() => selectLesson(index)}
+              title={`${item.title} (${item.year})`}
+              aria-pressed={index === lessonIndex}
+            >
+              <img src="/speaker-stage.jpg" alt="" />
+              <span><strong>{item.title}</strong><small>{item.year} · {item.minutes} 分钟</small></span>
+              {index === lessonIndex && <i />}
+            </button>
+          ))}
         </div>
         <div className="sidebar-space" />
-        <div className="source-note"><ListMusic size={17} /><div><strong>1 套真实素材</strong><span>78 个时间段</span></div></div>
+        <div className="source-note"><ListMusic size={17} /><div><strong>{lessons.length} 套真实素材</strong><span>{totalSegments} 个时间段</span></div></div>
         <div className="profile"><span>Y</span><div><strong>Yuki</strong><small>Listener</small></div></div>
       </aside>
 
       <main className="main-area">
         <header className="topbar">
-          <div className="mobile-track"><img src="/speaker-stage.jpg" alt="" /><span><strong>{lesson.title}</strong><small>{lesson.speaker}</small></span></div>
+          <div className="mobile-track">
+            <img src="/speaker-stage.jpg" alt="" />
+            <select
+              className="mobile-lesson-select"
+              value={lesson.id}
+              onChange={(event) => selectLesson(lessons.findIndex((item) => item.id === event.target.value))}
+              aria-label="选择演讲素材"
+            >
+              {lessons.map((item) => <option key={item.id} value={item.id}>{item.year} · {item.title}</option>)}
+            </select>
+          </div>
           <div className="breadcrumb"><span>素材库</span><i>/</i><strong>{lesson.title}</strong></div>
-          <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />官方稿</a>
+          <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'prepared-remarks' ? '官方稿' : '字幕稿'}</a>
         </header>
 
         <div className="listening-stage">
@@ -194,7 +274,7 @@ function App() {
               <i />
             </div>
             <div className="album-meta">
-              <div className="meta-tags"><span>原声</span><span>中英双语</span><span>{lesson.level}</span><span>2017</span></div>
+              <div className="meta-tags"><span>原声</span><span>中英双语</span><span>{lesson.level}</span><span>{lesson.year}</span></div>
               <h1>{lesson.title}</h1>
               <p>{lesson.speaker}</p>
               <div className="album-facts"><span><Clock3 size={15} />{lesson.minutes} 分钟</span><span><ListMusic size={15} />{lesson.segments.length} 句</span></div>
@@ -232,7 +312,7 @@ function App() {
           <div className="now-playing">
             <img src="/speaker-stage.jpg" alt="" />
             <span><strong>{lesson.title}</strong><small>{lesson.speaker}</small></span>
-            <button className={isLiked ? 'liked' : ''} onClick={() => setIsLiked((value) => !value)} title="收藏"><Heart size={18} fill={isLiked ? 'currentColor' : 'none'} /></button>
+            <button className={isLiked ? 'liked' : ''} onClick={() => setLikedLessons((value) => ({ ...value, [lesson.id]: !value[lesson.id] }))} title="收藏"><Heart size={18} fill={isLiked ? 'currentColor' : 'none'} /></button>
           </div>
           <div className="transport">
             <div className="transport-buttons">
@@ -244,8 +324,8 @@ function App() {
             </div>
             <div className="progress-row">
               <span className="time-current">{formatTime(currentTime)}</span>
-              <input className="progress-range" type="range" min="0" max={duration || 1008.652} step="0.05" value={currentTime} onChange={(event) => seek(Number(event.target.value))} aria-label="播放进度" style={{ '--progress': `${duration ? (currentTime / duration) * 100 : 0}%` } as CSSProperties} />
-              <span>{formatTime(duration)}</span>
+              <input className="progress-range" type="range" min="0" max={duration || lesson.durationSeconds} step="0.05" value={currentTime} onChange={(event) => seek(Number(event.target.value))} aria-label="播放进度" style={{ '--progress': `${duration ? (currentTime / duration) * 100 : 0}%` } as CSSProperties} />
+              <span>{formatTime(duration || lesson.durationSeconds)}</span>
             </div>
           </div>
           <div className="volume-control">

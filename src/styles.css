@@ -30,7 +30,9 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .side-nav > div.active { color: #fff; background: #34483c; }
 .side-nav > div.active svg { color: #9ed0af; }
 .playlist-heading { margin: 27px 7px 10px; padding-top: 18px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #354039; color: #79827b; font-size: 10px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; }
+.playlist { display: grid; gap: 3px; }
 .playlist-item { position: relative; width: 100%; min-width: 0; padding: 9px; display: flex; align-items: center; gap: 9px; text-align: left; border: 0; border-radius: 6px; color: #dfe4e0; background: transparent; }
+.playlist-item:hover { background: #263029; cursor: pointer; }
 .playlist-item.active { background: #2b342e; }
 .playlist-item img { width: 36px; height: 36px; flex: 0 0 auto; border-radius: 4px; object-fit: cover; }
 .playlist-item > span { min-width: 0; flex: 1; display: grid; gap: 3px; }
@@ -58,6 +60,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .source-button { height: 36px; padding: 0 12px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 6px; color: #4f5751; background: #fff; font-size: 11px; font-weight: 750; text-decoration: none; white-space: nowrap; }
 .source-button:hover { border-color: #c1c7c1; background: #f5f6f3; }
 .mobile-track { display: none; }
+.mobile-lesson-select { min-width: 0; width: 100%; border: 0; color: var(--ink); background: transparent; font-size: 10px; font-weight: 750; }
 
 .listening-stage { min-width: 0; min-height: 0; display: grid; grid-template-columns: minmax(340px, .83fr) minmax(440px, 1.17fr); }
 .album-pane { min-width: 0; min-height: 0; padding: clamp(30px, 4.8vh, 58px) 34px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--line); background: #f1f3f0; }
@@ -137,8 +140,11 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
   .player-shell { grid-template-columns: 78px minmax(0, 1fr); }
   .sidebar { padding-inline: 13px; align-items: center; }
   .brand { padding: 0; }
-  .brand > span:last-child, .side-nav span, .playlist-heading, .playlist-item, .source-note, .profile div, .profile svg { display: none; }
+  .brand > span:last-child, .side-nav span, .playlist-heading, .playlist-item > span, .source-note, .profile div, .profile svg { display: none; }
   .side-nav > div { width: 48px; padding: 0; justify-content: center; }
+  .playlist { width: 100%; margin-top: 24px; gap: 7px; }
+  .playlist-item { padding: 6px; justify-content: center; }
+  .playlist-item img { width: 38px; height: 38px; }
   .sidebar-space { flex: 1; }
   .profile { padding: 0; }
   .listening-stage { grid-template-columns: minmax(300px, .76fr) minmax(380px, 1.24fr); }
@@ -153,7 +159,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
   .sidebar { width: 100%; height: 58px; padding: 0 18px; flex-direction: row; align-items: center; justify-content: space-between; border-bottom: 1px solid #354039; }
   .brand { height: 34px; }
   .brand > span:last-child { display: inline; }
-  .side-nav, .playlist-heading, .playlist-item, .sidebar-space, .source-note { display: none; }
+  .side-nav, .playlist-heading, .playlist, .sidebar-space, .source-note { display: none; }
   .profile { display: flex; height: 34px; }
   .profile > span { width: 30px; height: 30px; }
   .main-area { height: calc(100dvh - 58px); min-height: 582px; grid-template-rows: 58px minmax(0, 1fr) 102px; }
@@ -161,10 +167,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
   .breadcrumb { display: none; }
   .mobile-track { min-width: 0; display: flex; align-items: center; gap: 9px; flex: 1; }
   .mobile-track img { width: 34px; height: 34px; border-radius: 4px; object-fit: cover; }
-  .mobile-track > span { min-width: 0; display: grid; gap: 2px; }
-  .mobile-track strong, .mobile-track small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .mobile-track strong { font-size: 10px; }
-  .mobile-track small { color: #858b86; font-size: 8px; }
+  .mobile-lesson-select { flex: 1; height: 34px; padding: 0 22px 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .source-button { height: 32px; padding-inline: 10px; font-size: 10px; }
   .listening-stage { min-height: 0; display: grid; grid-template-columns: 1fr; grid-template-rows: 148px minmax(0, 1fr); }
   .album-pane { min-height: 0; padding: 17px 20px; flex-direction: row; justify-content: flex-start; gap: 18px; border-right: 0; border-bottom: 1px solid var(--line); }

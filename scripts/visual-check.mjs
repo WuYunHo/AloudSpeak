@@ -35,6 +35,23 @@ async function checkViewport(name, viewport) {
   await page.screenshot({ path: `${outputDir}/${name}.png` })
 
   if (name === 'desktop') {
+    await page.locator('.playlist-item').nth(1).click()
+    await page.getByRole('heading', { name: 'Address to the Nation on Syria', level: 1 }).waitFor()
+    await page.locator('.lyric-line').first().getByText(/不久前，我命令美国武装部队/).waitFor()
+    await page.locator('.playlist-item').nth(2).click()
+    await page.getByRole('heading', { name: 'Address to the Nation', level: 1, exact: true }).waitFor()
+    await page.locator('.lyric-line').first().getByText(/新冠病毒疫情/).waitFor()
+    await page.locator('.playlist-item').first().click()
+    await page.getByRole('heading', { name: 'The Inaugural Address', level: 1 }).waitFor()
+  } else {
+    await page.getByLabel('选择演讲素材').selectOption('donald-trump-2018-syria-address')
+    await page.getByRole('heading', { name: 'Address to the Nation on Syria', level: 1 }).waitFor()
+    await page.getByLabel('选择演讲素材').selectOption('donald-trump-2020-address-to-the-nation')
+    await page.getByRole('heading', { name: 'Address to the Nation', level: 1, exact: true }).waitFor()
+    await page.getByLabel('选择演讲素材').selectOption('donald-trump-2017-inaugural-address')
+  }
+
+  if (name === 'desktop') {
     await page.getByRole('button', { name: '播放', exact: true }).click()
     await page.getByRole('button', { name: '暂停' }).waitFor()
     await page.locator('.lyric-line').nth(2).click()

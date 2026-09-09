@@ -1,0 +1,32 @@
+{
+  "id": "donald-trump-2020-address-to-the-nation",
+  "title": "Address to the Nation",
+  "speaker": "Donald J. Trump",
+  "date": "2020-03-11",
+  "location": "Washington, D.C.",
+  "language": "en-US",
+  "durationSeconds": 571.66,
+  "transcript": {
+    "file": "transcript-official.md",
+    "sourceUrl": "https://trumpwhitehouse.archives.gov/briefings-statements/remarks-president-trump-address-nation/",
+    "sourcePublisher": "The White House Historical Archive",
+    "kind": "prepared-remarks",
+    "paragraphCount": 37
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://commons.wikimedia.org/w/api.php?action=timedtext&title=File%3APresident%20Trump%20Addresses%20the%20Nation%20-%20March%2011%2C%202020.webm&lang=en&trackformat=vtt&format=json",
+    "sourceVideoUrl": "https://commons.wikimedia.org/wiki/File:President_Trump_Addresses_the_Nation_-_March_11,_2020.webm",
+    "cueCount": 164,
+    "segmentCount": 74
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 9147577,
+    "sha256": "3ccc4796b0e40f0642bab1469d58ddf27c9cf3459cb2d7ff2f48bda13430ff03",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:President_Trump_Addresses_the_Nation_-_March_11,_2020.webm",
+    "derivativeUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d9/President_Trump_Addresses_the_Nation_-_March_11%2C_2020.webm/President_Trump_Addresses_the_Nation_-_March_11%2C_2020.webm.240p.vp9.webm",
+    "license": "Public domain"
+  }
+}

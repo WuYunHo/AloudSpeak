@@ -33,18 +33,25 @@ npm run check:visual
 
 ## Source material
 
-`content/donald-trump/2017-inaugural-address/` 包含第一套真实素材：
+`content/donald-trump/` 目前包含 3 套真实素材，共 202 个双语时间段：
 
-- `audio.mp3`：2017 年 1 月 20 日特朗普总统就职演说，Wikimedia
-  Commons 提供的公开领域 MP3 转码。
-- `transcript-official.md`：Trump White House Historical Archive 发布的
-  官方准备稿；它不是按原声逐字转写的版本。
-- `metadata.json`：日期、时长、来源链接、许可和音频 SHA-256。
-- `captions-en.vtt`：Wikimedia 视频英文字幕，共 185 个原始提示。
-- `lesson.json`：由字幕生成的 78 个带起止时间训练句段。
-- `translations-zh-CN.json`：与 78 个训练句段逐项对应的简体中文译文。
+- `2017-inaugural-address/`：2017 年就职演说，78 个句段。
+- `2018-syria-address/`：2018 年叙利亚全国讲话，50 个句段。
+- `2020-address-to-the-nation/`：2020 年 3 月全国讲话，74 个句段。
 
-这套素材已经作为应用默认课程导入，并直接驱动播放器和中英双语滚动字幕。
+每套目录都包含 `audio.mp3`、`captions-en.vtt`、`lesson.json`、
+`translations-zh-CN.json` 和 `metadata.json`。音视频及英文字幕来自 Wikimedia
+Commons 的公开领域资源；2017、2020 演讲同时保存了 Trump White House
+Historical Archive 的官方准备稿，2018 演讲保存由字幕整理的文本并明确标注为
+`caption-transcript`。
 
 运行 `npm run fetch:trump:inaugural` 可以重新抓取稿件、下载缺失的音频并
 更新元数据。脚本不会重复下载已经存在的 `audio.mp3`。
+
+运行以下命令可重新抓取新增两篇素材，并校验全部三篇的音频、哈希、字幕、
+句段和中文翻译：
+
+```bash
+npm run fetch:trump:addresses
+npm run verify:trump:materials
+```
