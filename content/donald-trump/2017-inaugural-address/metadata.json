@@ -1,0 +1,33 @@
+{
+  "id": "donald-trump-2017-inaugural-address",
+  "title": "The Inaugural Address",
+  "speaker": "Donald J. Trump",
+  "date": "2017-01-20",
+  "location": "Washington, D.C.",
+  "language": "en-US",
+  "durationSeconds": 1008.65161,
+  "transcript": {
+    "file": "transcript-official.md",
+    "sourceUrl": "https://trumpwhitehouse.archives.gov/briefings-statements/the-inaugural-address/",
+    "sourcePublisher": "The White House Historical Archive",
+    "kind": "prepared-remarks",
+    "paragraphCount": 75
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://commons.wikimedia.org/w/api.php?action=timedtext&title=File%3APresident%20Trump%27s%20Inaugural%20Address.webm&lang=en&trackformat=vtt&format=json",
+    "sourceVideoUrl": "https://commons.wikimedia.org/wiki/File:President_Trump%27s_Inaugural_Address.webm",
+    "cueCount": 185,
+    "segmentCount": 78
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 20824638,
+    "sha256": "5f6810b539700b4f7ab7e08069bafea73f88446b17d4a44f905e87c3ddbc9c1e",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:President_Donald_Trump%27s_First_Inaugural_Address_-_January_20,_2017.wav",
+    "derivativeUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f5/President_Donald_Trump%27s_First_Inaugural_Address_-_January_20%2C_2017.wav/President_Donald_Trump%27s_First_Inaugural_Address_-_January_20%2C_2017.wav.mp3",
+    "originalVideoUrl": "https://www.youtube.com/watch?v=jWaJe5pBYic",
+    "license": "Public domain"
+  }
+}

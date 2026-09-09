@@ -1,0 +1,557 @@
+{
+  "id": "donald-trump-2017-inaugural-address",
+  "title": "The Inaugural Address",
+  "speaker": "Donald J. Trump",
+  "category": "Presidential address",
+  "level": "B1-B2",
+  "minutes": 17,
+  "sourceUrl": "https://trumpwhitehouse.archives.gov/briefings-statements/the-inaugural-address/",
+  "segments": [
+    {
+      "id": 1001,
+      "start": 11.25,
+      "end": 26.25,
+      "text": "Chief Justice Roberts, President Carter, President Clinton, President Bush, President Obama, fellow Americans, and people of the world, thank you.",
+      "translation": ""
+    },
+    {
+      "id": 1002,
+      "start": 31.5,
+      "end": 45.5,
+      "text": "We, the citizens of America, are now joined in a great national effort to rebuild our country and restore its promise for all of our people.",
+      "translation": ""
+    },
+    {
+      "id": 1003,
+      "start": 47.5,
+      "end": 55.5,
+      "text": "Together we will determine the course of America, and the world, for many, many years to come.",
+      "translation": ""
+    },
+    {
+      "id": 1004,
+      "start": 56.75,
+      "end": 63.75,
+      "text": "We will face challenges, we will confront hardships, but we will get the job done.",
+      "translation": ""
+    },
+    {
+      "id": 1005,
+      "start": 64.75,
+      "end": 83.5,
+      "text": "Every four years, we gather on these steps to carry out the orderly and peaceful transfer of power – and we are grateful to President Obama, and first lady Michelle Obama, for their gracious aid throughout this transition.",
+      "translation": ""
+    },
+    {
+      "id": 1006,
+      "start": 83.5,
+      "end": 85.833,
+      "text": "They have been magnificent.",
+      "translation": ""
+    },
+    {
+      "id": 1007,
+      "start": 85.833,
+      "end": 87,
+      "text": "Thank you.",
+      "translation": ""
+    },
+    {
+      "id": 1008,
+      "start": 94.1,
+      "end": 113,
+      "text": "Today's ceremony, however, has very special meaning – because today, we are not merely transferring power from one administration to another, or from one party to another – but we are transferring power from Washington DC,",
+      "translation": ""
+    },
+    {
+      "id": 1009,
+      "start": 113,
+      "end": 116.5,
+      "text": "and giving it back to you, the people.",
+      "translation": ""
+    },
+    {
+      "id": 1010,
+      "start": 125,
+      "end": 135.25,
+      "text": "For too long, a small group in our nation's capital has reaped the rewards of government, while the people have borne the cost.",
+      "translation": ""
+    },
+    {
+      "id": 1011,
+      "start": 137.35,
+      "end": 143.25,
+      "text": "Washington flourished, but the people did not share in its wealth.",
+      "translation": ""
+    },
+    {
+      "id": 1012,
+      "start": 144,
+      "end": 150.5,
+      "text": "Politicians prospered, but the jobs left, and the factories closed.",
+      "translation": ""
+    },
+    {
+      "id": 1013,
+      "start": 152.25,
+      "end": 158,
+      "text": "The establishment protected itself, but not the citizens of our country.",
+      "translation": ""
+    },
+    {
+      "id": 1014,
+      "start": 159,
+      "end": 177.5,
+      "text": "Their victories have not been your victories; their triumphs have not been your triumphs; and while they celebrated in our nation's capital, there was little to celebrate for struggling families all across our land.",
+      "translation": ""
+    },
+    {
+      "id": 1015,
+      "start": 183,
+      "end": 194,
+      "text": "That all changes, starting right here and right now, because this moment is your moment: it belongs to you.",
+      "translation": ""
+    },
+    {
+      "id": 1016,
+      "start": 200.85,
+      "end": 217.5,
+      "text": "It belongs to everyone gathered here today, and everyone watching all across America; this is your day, this is your celebration, and this, the United States of America, is your country.",
+      "translation": ""
+    },
+    {
+      "id": 1017,
+      "start": 224.25,
+      "end": 233.5,
+      "text": "What truly matters is not which party controls our government, but whether our government is controlled by the people.",
+      "translation": ""
+    },
+    {
+      "id": 1018,
+      "start": 237.6,
+      "end": 249,
+      "text": "January 20th, 2017, will be remembered as the day the people became the rulers of this nation again.",
+      "translation": ""
+    },
+    {
+      "id": 1019,
+      "start": 254.75,
+      "end": 260.75,
+      "text": "The forgotten men and women of our country will be forgotten no longer.",
+      "translation": ""
+    },
+    {
+      "id": 1020,
+      "start": 264.85,
+      "end": 267.25,
+      "text": "Everyone is listening to you now.",
+      "translation": ""
+    },
+    {
+      "id": 1021,
+      "start": 267.25,
+      "end": 278,
+      "text": "You came by the tens of millions to become part of a historic movement, the likes of which the world has never seen before.",
+      "translation": ""
+    },
+    {
+      "id": 1022,
+      "start": 282.25,
+      "end": 292,
+      "text": "At the centre of this movement is a crucial conviction that a nation exists to serve its citizens.",
+      "translation": ""
+    },
+    {
+      "id": 1023,
+      "start": 292,
+      "end": 301,
+      "text": "Americans want great schools for their children, safe neighbourhoods for their families, and good jobs for themselves.",
+      "translation": ""
+    },
+    {
+      "id": 1024,
+      "start": 302.75,
+      "end": 312.1,
+      "text": "These are just and reasonable demands of righteous people and a righteous public.",
+      "translation": ""
+    },
+    {
+      "id": 1025,
+      "start": 312.75,
+      "end": 333.25,
+      "text": "But for too many of our citizens, a different reality exists: mothers and children trapped in poverty in our inner cities; rusted out factories scattered like tombstones across the landscape of our nation; an education system flushed with cash,",
+      "translation": ""
+    },
+    {
+      "id": 1026,
+      "start": 333.25,
+      "end": 351.75,
+      "text": "but which leaves our young and beautiful students deprived of all knowledge; and the crime, and the gangs, and the drugs that have stolen too many lives and robbed our country of so much unrealised potential.",
+      "translation": ""
+    },
+    {
+      "id": 1027,
+      "start": 352.75,
+      "end": 360.5,
+      "text": "This American carnage stops right here and stops right now.",
+      "translation": ""
+    },
+    {
+      "id": 1028,
+      "start": 369.25,
+      "end": 379.75,
+      "text": "We are one nation, and their pain is our pain, their dreams are our dreams, and their success will be our success.",
+      "translation": ""
+    },
+    {
+      "id": 1029,
+      "start": 380.5,
+      "end": 386.9,
+      "text": "We share one heart, one home, and one glorious destiny.",
+      "translation": ""
+    },
+    {
+      "id": 1030,
+      "start": 388.25,
+      "end": 394.25,
+      "text": "The oath of office I take today is an oath of allegiance to all Americans.",
+      "translation": ""
+    },
+    {
+      "id": 1031,
+      "start": 399.9,
+      "end": 418.282,
+      "text": "For many decades, we've enriched foreign industry at the expense of American industry; subsidised the armies of other countries, while allowing for the very sad depletion of our military; we've defended other nations' borders,",
+      "translation": ""
+    },
+    {
+      "id": 1032,
+      "start": 418.282,
+      "end": 438.75,
+      "text": "while refusing to defend our own; and spent trillions and trillions of dollars overseas, while America's infrastructure has fallen into disrepair and decay.",
+      "translation": ""
+    },
+    {
+      "id": 1033,
+      "start": 440,
+      "end": 451.25,
+      "text": "We've made other countries rich, while the wealth, strength, and confidence of our country has dissipated over the horizon.",
+      "translation": ""
+    },
+    {
+      "id": 1034,
+      "start": 452.75,
+      "end": 466.25,
+      "text": "One by one, the factories shuttered and left our shores, with not even a thought about the millions and millions of American workers that were left behind.",
+      "translation": ""
+    },
+    {
+      "id": 1035,
+      "start": 467.1,
+      "end": 477.1,
+      "text": "The wealth of our middle class has been ripped from their homes, and then redistributed all across the world.",
+      "translation": ""
+    },
+    {
+      "id": 1036,
+      "start": 478.5,
+      "end": 485.25,
+      "text": "But that is the past – and now, we are looking only to the future.",
+      "translation": ""
+    },
+    {
+      "id": 1037,
+      "start": 494.5,
+      "end": 515.077,
+      "text": "We assembled here today are issuing a new decree to be heard in every city, in every foreign capital, and in every hall of power; from this day forward, a new vision will govern our land – from this day forward,",
+      "translation": ""
+    },
+    {
+      "id": 1038,
+      "start": 515.077,
+      "end": 522,
+      "text": "it's going to be only 'America first,' 'America first.'",
+      "translation": ""
+    },
+    {
+      "id": 1039,
+      "start": 527.75,
+      "end": 540.25,
+      "text": "Every decision on trade, on taxes, on immigration, on foreign affairs, will be made to benefit American workers and American families.",
+      "translation": ""
+    },
+    {
+      "id": 1040,
+      "start": 540.5,
+      "end": 551.75,
+      "text": "We must protect our borders from the ravagers of other countries, making our products, stealing our companies, and destroying our jobs.",
+      "translation": ""
+    },
+    {
+      "id": 1041,
+      "start": 558.6,
+      "end": 562.5,
+      "text": "Protection will lead to great prosperity and strength.",
+      "translation": ""
+    },
+    {
+      "id": 1042,
+      "start": 563.25,
+      "end": 572,
+      "text": "I will fight for you with every breath in my body, and I will never ever let you down.",
+      "translation": ""
+    },
+    {
+      "id": 1043,
+      "start": 577.25,
+      "end": 582.5,
+      "text": "America will start winning again, winning like never before.",
+      "translation": ""
+    },
+    {
+      "id": 1044,
+      "start": 586.4,
+      "end": 598.4,
+      "text": "We will bring back our jobs, we will bring back our borders, we will bring back our wealth, and we will bring back our dreams.",
+      "translation": ""
+    },
+    {
+      "id": 1045,
+      "start": 604.6,
+      "end": 615.25,
+      "text": "We will build new roads, and highways, and bridges, and airports, and tunnels, and railways, all across our wonderful nation.",
+      "translation": ""
+    },
+    {
+      "id": 1046,
+      "start": 616.5,
+      "end": 626.5,
+      "text": "We will get our people off of welfare, and back to work, rebuilding our country with American hands and American labour.",
+      "translation": ""
+    },
+    {
+      "id": 1047,
+      "start": 631.25,
+      "end": 637.75,
+      "text": "We will follow two simple rules: 'Buy American' and 'Hire American.'",
+      "translation": ""
+    },
+    {
+      "id": 1048,
+      "start": 642,
+      "end": 655,
+      "text": "We will seek friendship and goodwill with the nations of the world, but we do so with the understanding that it is the right of all nations to put their own interests first.",
+      "translation": ""
+    },
+    {
+      "id": 1049,
+      "start": 655.85,
+      "end": 667.85,
+      "text": "We do not seek to impose our way of life on anyone – but rather, to let it shine as an example; we will shine for everyone to follow.",
+      "translation": ""
+    },
+    {
+      "id": 1050,
+      "start": 671.9,
+      "end": 686,
+      "text": "We will reinforce old alliances and form new ones, and unite the civilised world against radical Islamic terrorism, which we will eradicate completely from the face of the earth!",
+      "translation": ""
+    },
+    {
+      "id": 1051,
+      "start": 692.35,
+      "end": 706,
+      "text": "At the bedrock of our politics will be a total allegiance to the United States of America, and through our loyalty to our country, we will rediscover our loyalty to each other.",
+      "translation": ""
+    },
+    {
+      "id": 1052,
+      "start": 707.15,
+      "end": 713.5,
+      "text": "When you open your heart to patriotism, there is no room for prejudice.",
+      "translation": ""
+    },
+    {
+      "id": 1053,
+      "start": 721.5,
+      "end": 729.75,
+      "text": "The Bible tells us how good and pleasant it is when God's people live together in unity.",
+      "translation": ""
+    },
+    {
+      "id": 1054,
+      "start": 730.4,
+      "end": 739.1,
+      "text": "We must speak our minds openly, debate our disagreements honestly, but always pursue solidarity.",
+      "translation": ""
+    },
+    {
+      "id": 1055,
+      "start": 740.25,
+      "end": 746,
+      "text": "When America is united, America is totally unstoppable.",
+      "translation": ""
+    },
+    {
+      "id": 1056,
+      "start": 752.15,
+      "end": 767,
+      "text": "There should be no fear – we are protected, and we will always be protected; we will be protected by the great men and women of our military and law enforcement, and most importantly,",
+      "translation": ""
+    },
+    {
+      "id": 1057,
+      "start": 769.35,
+      "end": 772.25,
+      "text": "we will be protected by God.",
+      "translation": ""
+    },
+    {
+      "id": 1058,
+      "start": 779.35,
+      "end": 783.85,
+      "text": "Finally, we must think big, and dream even bigger.",
+      "translation": ""
+    },
+    {
+      "id": 1059,
+      "start": 784.4,
+      "end": 791.5,
+      "text": "In America, we understand that a nation is only living as long as it is striving.",
+      "translation": ""
+    },
+    {
+      "id": 1060,
+      "start": 792.35,
+      "end": 802,
+      "text": "We will no longer accept politicians who are all talk and no action – constantly complaining, but never doing anything about it.",
+      "translation": ""
+    },
+    {
+      "id": 1061,
+      "start": 810.6,
+      "end": 814.315,
+      "text": "The time for empty talk is over.",
+      "translation": ""
+    },
+    {
+      "id": 1062,
+      "start": 814.315,
+      "end": 817.5,
+      "text": "Now arrives the hour of action.",
+      "translation": ""
+    },
+    {
+      "id": 1063,
+      "start": 822.85,
+      "end": 828.15,
+      "text": "Do not allow anyone to tell you that it can not be done.",
+      "translation": ""
+    },
+    {
+      "id": 1064,
+      "start": 828.25,
+      "end": 833.75,
+      "text": "No challenge can match the heart, and fight, and spirit of America.",
+      "translation": ""
+    },
+    {
+      "id": 1065,
+      "start": 834,
+      "end": 839.25,
+      "text": "We will not fail; our country will thrive and prosper again.",
+      "translation": ""
+    },
+    {
+      "id": 1066,
+      "start": 840.75,
+      "end": 857.6,
+      "text": "We stand at the birth of a new millennium – ready to unlock the mysteries of space, to free the Earth from the miseries of disease, and to harness the energies, industries, and technologies of tomorrow.",
+      "translation": ""
+    },
+    {
+      "id": 1067,
+      "start": 858,
+      "end": 865.25,
+      "text": "A new national pride will stir our souls, lift our sights, and heal our divisions.",
+      "translation": ""
+    },
+    {
+      "id": 1068,
+      "start": 865.75,
+      "end": 880.5,
+      "text": "It's time to remember that old wisdom our soldiers will never forget: that whether we are black, or brown, or white, we all bleed the same red blood of patriots.",
+      "translation": ""
+    },
+    {
+      "id": 1069,
+      "start": 886.75,
+      "end": 894.9,
+      "text": "We all enjoy the same glorious freedoms, and we all salute the same great American flag.",
+      "translation": ""
+    },
+    {
+      "id": 1070,
+      "start": 899.85,
+      "end": 913.25,
+      "text": "And whether a child is born in the urban sprawl of Detroit, or the windswept plains of Nebraska, they look up at the same night sky, they fill their heart with the same dreams,",
+      "translation": ""
+    },
+    {
+      "id": 1071,
+      "start": 913.25,
+      "end": 920.75,
+      "text": "and they are infused with the breath of life by the same almighty creator.",
+      "translation": ""
+    },
+    {
+      "id": 1072,
+      "start": 927.5,
+      "end": 941.5,
+      "text": "So to all Americans, in every city near and far, small and large – from mountain to mountain, from ocean to ocean, hear these words: you will never be ignored again.",
+      "translation": ""
+    },
+    {
+      "id": 1073,
+      "start": 946.4,
+      "end": 954,
+      "text": "Your voice, your hopes, and your dreams will define our American destiny.",
+      "translation": ""
+    },
+    {
+      "id": 1074,
+      "start": 954.75,
+      "end": 960,
+      "text": "And your courage and goodness and love will forever guide us along the way.",
+      "translation": ""
+    },
+    {
+      "id": 1075,
+      "start": 961.1,
+      "end": 980.75,
+      "text": "Together, we will make America strong again, we will make America wealthy again, we will make America proud again, we will make America safe again, and yes – together, we will make America great again.",
+      "translation": ""
+    },
+    {
+      "id": 1076,
+      "start": 981.1,
+      "end": 985.1,
+      "text": "Thank you, God bless you, and God bless America.",
+      "translation": ""
+    },
+    {
+      "id": 1077,
+      "start": 987.15,
+      "end": 988.49,
+      "text": "Thank you.",
+      "translation": ""
+    },
+    {
+      "id": 1078,
+      "start": 988.49,
+      "end": 990.5,
+      "text": "God bless America.",
+      "translation": ""
+    }
+  ]
+}
