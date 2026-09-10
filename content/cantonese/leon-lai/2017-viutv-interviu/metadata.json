@@ -1,0 +1,40 @@
+{
+  "id": "leon-lai-2017-viutv-interviu",
+  "title": "黎明 ViuTV《Interviu》專訪",
+  "speaker": "黎明（Leon Lai）",
+  "date": "2017-11-17",
+  "location": "香港",
+  "language": "yue-Hant-HK",
+  "durationSeconds": 1354.92,
+  "transcript": {
+    "file": "transcript-yue-Hant.md",
+    "rawFile": "transcript-raw.json",
+    "sourceUrl": "https://www.bilibili.com/video/BV1hx411L7zM/",
+    "sourcePublisher": "Bilibili",
+    "kind": "machine-transcript",
+    "model": "whisper.cpp large-v3-turbo-q5_0",
+    "segmentCount": 552,
+    "qualityControl": "Context isolation, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions."
+  },
+  "captions": {
+    "file": "captions-yue-Hant.vtt",
+    "sourceUrl": "https://www.bilibili.com/video/BV1hx411L7zM/",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1hx411L7zM/",
+    "segmentCount": 552
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 16259534,
+    "sha256": "7a9e03df6b6d62f1ce8e43e058bbbf96a943893968419fa7ec8abe5177141212",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1hx411L7zM/",
+    "sourceCid": 26778647,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 335161,
+    "sha256": "0bc019e34daf3d29efaa4d0d5fee9a8680fa500eb40d1862724947624688aaeb",
+    "sourceUrl": "http://i2.hdslb.com/bfs/archive/cd9a8efd80ec5536d12039308c8e8acce90944cb.png"
+  }
+}

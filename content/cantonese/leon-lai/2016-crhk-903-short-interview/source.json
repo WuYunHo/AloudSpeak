@@ -1,0 +1,29 @@
+{
+  "id": "leon-lai-2016-crhk-903-short-interview",
+  "title": "黎明叱咤 903 電台訪問（短版）",
+  "speaker": "黎明（Leon Lai）",
+  "date": "2016-03-02",
+  "language": "zh-HK",
+  "durationSeconds": 338.05,
+  "source": {
+    "platform": "Bilibili",
+    "url": "https://www.bilibili.com/video/BV11T4y1A7Su/",
+    "bvid": "BV11T4y1A7Su",
+    "cid": 238265648,
+    "uploadedTitle": "【黎明Leon】电台聊天现场·高清字幕·叱咤903·郑裕玲老友记·口水多过浪花演唱会访问",
+    "uploader": "我是鲁迅Leon家族",
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 4057126,
+    "sha256": "2fe05bbd38808fa3c3057928dd4109a72a2b50ca788ecc7b5dfea74aa2192799",
+    "mimeType": "audio/mpeg"
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 230464,
+    "sha256": "21f62e862f55edb7123dbf568907e07c98ef379d6f19dade2a9015a9b19fd408",
+    "sourceUrl": "http://i2.hdslb.com/bfs/archive/63e6182c94954bbe16c89c57d0e4c4d708fdfa41.jpg"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "id": "leon-lai-1993-radio-interview",
+  "title": "黎明 1993《海角天涯》電台訪問",
+  "speaker": "黎明（Leon Lai）",
+  "date": "1993-06-04",
+  "language": "zh-HK",
+  "durationSeconds": 4225.18,
+  "source": {
+    "platform": "Bilibili",
+    "url": "https://www.bilibili.com/video/BV1cS4y1S7AS/",
+    "bvid": "BV1cS4y1S7AS",
+    "cid": 556965250,
+    "uploadedTitle": "【字幕】黎明 超级有内容有趣的电台访问",
+    "uploader": "雾灯之里",
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 50702625,
+    "sha256": "54cf1bcc7d9aab8ecabd4f00483347454b5c92b93254c00b64d9151af0a903af",
+    "mimeType": "audio/mpeg"
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 60935,
+    "sha256": "2df06722ebbde055089b3aa9f122ed42cac97040ebcae08049cc52e5f862fb2d",
+    "sourceUrl": "http://i1.hdslb.com/bfs/archive/3d4f15f58f4eb80422cd913e65306dcfba4dd6e7.jpg"
+  }
+}

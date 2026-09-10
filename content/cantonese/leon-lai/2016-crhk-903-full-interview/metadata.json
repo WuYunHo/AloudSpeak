@@ -1,0 +1,40 @@
+{
+  "id": "leon-lai-2016-crhk-903-full-interview",
+  "title": "黎明《口水多過浪花》完整訪問",
+  "speaker": "黎明（Leon Lai）",
+  "date": "2016-03-02",
+  "location": "香港",
+  "language": "yue-Hant-HK",
+  "durationSeconds": 1352.02,
+  "transcript": {
+    "file": "transcript-yue-Hant.md",
+    "rawFile": "transcript-raw.json",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Hi4y1C7C8/",
+    "sourcePublisher": "Bilibili",
+    "kind": "machine-transcript",
+    "model": "whisper.cpp large-v3-turbo-q5_0",
+    "segmentCount": 573,
+    "qualityControl": "Context isolation, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions."
+  },
+  "captions": {
+    "file": "captions-yue-Hant.vtt",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Hi4y1C7C8/",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1Hi4y1C7C8/",
+    "segmentCount": 573
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 16224761,
+    "sha256": "661e9b49856acf1f411fe9bf0233e6caf8c4b11ccc3761389ecfdc30e8a77cc7",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Hi4y1C7C8/",
+    "sourceCid": 547965699,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 159878,
+    "sha256": "6290f9ae351e685fa0d7eda15bbcf283dd81f5f711f2bdc69d516861907641ca",
+    "sourceUrl": "http://i0.hdslb.com/bfs/archive/928bca12901531fa1594ef58c2a56c5449842cec.jpg"
+  }
+}

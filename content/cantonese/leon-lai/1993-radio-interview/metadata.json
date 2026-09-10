@@ -1,0 +1,40 @@
+{
+  "id": "leon-lai-1993-radio-interview",
+  "title": "黎明 1993《海角天涯》電台訪問",
+  "speaker": "黎明（Leon Lai）",
+  "date": "1993-06-04",
+  "location": "香港",
+  "language": "yue-Hant-HK",
+  "durationSeconds": 4225.18,
+  "transcript": {
+    "file": "transcript-yue-Hant.md",
+    "rawFile": "transcript-raw.json",
+    "sourceUrl": "https://www.bilibili.com/video/BV1cS4y1S7AS/",
+    "sourcePublisher": "Bilibili",
+    "kind": "machine-transcript",
+    "model": "whisper.cpp large-v3-turbo-q5_0",
+    "segmentCount": 2037,
+    "qualityControl": "Context isolation, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions."
+  },
+  "captions": {
+    "file": "captions-yue-Hant.vtt",
+    "sourceUrl": "https://www.bilibili.com/video/BV1cS4y1S7AS/",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1cS4y1S7AS/",
+    "segmentCount": 2037
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 50702625,
+    "sha256": "54cf1bcc7d9aab8ecabd4f00483347454b5c92b93254c00b64d9151af0a903af",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1cS4y1S7AS/",
+    "sourceCid": 556965250,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 60935,
+    "sha256": "2df06722ebbde055089b3aa9f122ed42cac97040ebcae08049cc52e5f862fb2d",
+    "sourceUrl": "http://i1.hdslb.com/bfs/archive/3d4f15f58f4eb80422cd913e65306dcfba4dd6e7.jpg"
+  }
+}

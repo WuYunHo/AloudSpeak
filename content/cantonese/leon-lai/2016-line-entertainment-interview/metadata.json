@@ -1,0 +1,40 @@
+{
+  "id": "leon-lai-2016-line-entertainment-interview",
+  "title": "黎明《一綫娛樂》專訪",
+  "speaker": "黎明（Leon Lai）",
+  "date": "2016-04-18",
+  "location": "香港",
+  "language": "yue-Hant-HK",
+  "durationSeconds": 331.2,
+  "transcript": {
+    "file": "transcript-yue-Hant.md",
+    "rawFile": "transcript-raw.json",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Qs411z7hp/",
+    "sourcePublisher": "Bilibili",
+    "kind": "machine-transcript",
+    "model": "whisper.cpp large-v3-turbo-q5_0",
+    "segmentCount": 175,
+    "qualityControl": "Context isolation, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions."
+  },
+  "captions": {
+    "file": "captions-yue-Hant.vtt",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Qs411z7hp/",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1Qs411z7hp/",
+    "segmentCount": 175
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 3974894,
+    "sha256": "42a4770812696a4d2435abb64dbe109b6eea1fb63d270b31f88845c46636ce36",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1Qs411z7hp/",
+    "sourceCid": 7136793,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 33128,
+    "sha256": "583a4352ff04e44e12af1f78c9f856f5d70f54ae16412967b3d4c733a197d4ee",
+    "sourceUrl": "http://i1.hdslb.com/bfs/archive/197facddb985adfe651c10c0e6ed3be460e09ad2.jpg"
+  }
+}

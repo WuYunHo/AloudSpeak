@@ -1,6 +1,6 @@
 # Echo Speaking Practice
 
-一个以喜爱的演讲、访谈和致辞为素材的英语口语跟练原型。
+一个以喜爱的演讲、访谈和致辞为素材的原声跟练原型，支持英语与粤语内容。
 
 ## Run
 
@@ -75,4 +75,21 @@ CID、文件哈希和权利说明记录在各目录的 `metadata.json` 中。
 ```bash
 npm run fetch:ted:bilibili
 npm run verify:ted:materials
+```
+
+`content/cantonese/leon-lai/` 包含 5 套黎明的香港粤语访谈素材：
+
+- 2016《一綫娛樂》专访
+- 2017 ViuTV《Interviu》专访
+- 2016 叱咤 903 电台访问短版
+- 2016《口水多過浪花》完整访问
+- 1993《海角天涯》电台访问
+
+每套目录包含 MP3 原声、独立封面、香港繁体逐句字幕、VTT 时间轴和来源元数据。
+字幕由本地语音模型生成，经过去重、异常片段过滤和繁体转换；它们在界面中明确标注为
+粤语机器字幕，不作为人工逐字稿。运行以下命令可重建并校验五套素材：
+
+```bash
+npm run build:leon:cantonese
+npm run verify:leon:cantonese
 ```

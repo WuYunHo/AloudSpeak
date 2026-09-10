@@ -1,0 +1,29 @@
+{
+  "id": "leon-lai-2016-line-entertainment-interview",
+  "title": "黎明《一綫娛樂》專訪",
+  "speaker": "黎明（Leon Lai）",
+  "date": "2016-04-18",
+  "language": "zh-HK",
+  "durationSeconds": 331.2,
+  "source": {
+    "platform": "Bilibili",
+    "url": "https://www.bilibili.com/video/BV1Qs411z7hp/",
+    "bvid": "BV1Qs411z7hp",
+    "cid": 7136793,
+    "uploadedTitle": "【黎明】20160418 一綫娛樂 黎明專訪 粤语中字",
+    "uploader": "人在黎明",
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 3974894,
+    "sha256": "42a4770812696a4d2435abb64dbe109b6eea1fb63d270b31f88845c46636ce36",
+    "mimeType": "audio/mpeg"
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 33128,
+    "sha256": "583a4352ff04e44e12af1f78c9f856f5d70f54ae16412967b3d4c733a197d4ee",
+    "sourceUrl": "http://i1.hdslb.com/bfs/archive/197facddb985adfe651c10c0e6ed3be460e09ad2.jpg"
+  }
+}

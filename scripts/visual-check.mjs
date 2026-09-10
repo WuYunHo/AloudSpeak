@@ -35,7 +35,19 @@ async function checkViewport(name, viewport) {
   const collectionCount = name === 'desktop'
     ? await page.locator('.playlist-collection').count()
     : await page.locator('.mobile-lesson-select optgroup').count()
-  if (collectionCount !== 2) errors.push(`${name}: expected two lesson collections, found ${collectionCount}`)
+  if (collectionCount !== 3) errors.push(`${name}: expected three lesson collections, found ${collectionCount}`)
+
+  const leonLessonCount = name === 'desktop'
+    ? await page.locator('.playlist-collection').nth(2).locator('.playlist-item').count()
+    : await page.locator('.mobile-lesson-select optgroup').nth(2).locator('option').count()
+  if (leonLessonCount !== 5) errors.push(`${name}: expected five Leon Lai lessons, found ${leonLessonCount}`)
+
+  if (name === 'desktop') {
+    const leonCoverUrls = await page.locator('.playlist-collection').nth(2).locator('.playlist-item img').evaluateAll(
+      (images) => images.map((image) => image.getAttribute('src')),
+    )
+    if (new Set(leonCoverUrls).size !== 5) errors.push('desktop: Leon Lai lessons do not have five distinct covers')
+  }
 
   await page.screenshot({ path: `${outputDir}/${name}.png` })
 
@@ -52,6 +64,11 @@ async function checkViewport(name, viewport) {
     await page.locator('.lyric-line').first().getByText(/新冠病毒疫情/).waitFor()
     await page.locator('.playlist-collection').nth(1).locator('.playlist-item').first().click()
     await page.getByRole('heading', { name: "There's more to life than being happy", level: 1 }).waitFor()
+    await page.locator('.playlist-collection').nth(2).locator('.playlist-item').first().click()
+    await page.getByRole('heading', { name: '黎明《一綫娛樂》專訪', level: 1 }).waitFor()
+    await page.locator('.meta-tags').getByText('粤语原声').waitFor()
+    await page.locator('.lyric-line').first().getByText(/我主持了這麼久/).waitFor()
+    await page.screenshot({ path: `${outputDir}/desktop-leon.png` })
     await page.locator('.playlist-item').first().click()
     await page.getByRole('heading', { name: 'The Inaugural Address', level: 1 }).waitFor()
   } else {
@@ -61,6 +78,10 @@ async function checkViewport(name, viewport) {
     await page.getByRole('heading', { name: 'Address to the Nation', level: 1, exact: true }).waitFor()
     await page.getByLabel('选择演讲素材').selectOption('ted-emily-esfahani-smith-more-to-life-than-being-happy')
     await page.getByRole('heading', { name: "There's more to life than being happy", level: 1 }).waitFor()
+    await page.getByLabel('选择演讲素材').selectOption('leon-lai-2017-viutv-interviu')
+    await page.getByRole('heading', { name: '黎明 ViuTV《Interviu》專訪', level: 1 }).waitFor()
+    await page.locator('.meta-tags').getByText('繁体字幕').waitFor()
+    await page.screenshot({ path: `${outputDir}/mobile-leon.png` })
     await page.getByLabel('选择演讲素材').selectOption('donald-trump-2017-inaugural-address')
   }
 

@@ -53,6 +53,31 @@ import economyCoverUrl from '../content/ted/kate-raworth-healthy-economy-should-
 import economyLessonData from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/lesson.json'
 import economyMetadata from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/metadata.json'
 import economyTranslations from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/translations-zh-CN.json'
+import lineEntertainmentAudioUrl from '../content/cantonese/leon-lai/2016-line-entertainment-interview/audio.mp3?url'
+import lineEntertainmentCoverUrl from '../content/cantonese/leon-lai/2016-line-entertainment-interview/cover.jpg?url'
+import lineEntertainmentLessonData from '../content/cantonese/leon-lai/2016-line-entertainment-interview/lesson.json'
+import lineEntertainmentMetadata from '../content/cantonese/leon-lai/2016-line-entertainment-interview/metadata.json'
+import lineEntertainmentTranslations from '../content/cantonese/leon-lai/2016-line-entertainment-interview/translations-zh-CN.json'
+import viutvAudioUrl from '../content/cantonese/leon-lai/2017-viutv-interviu/audio.mp3?url'
+import viutvCoverUrl from '../content/cantonese/leon-lai/2017-viutv-interviu/cover.jpg?url'
+import viutvLessonData from '../content/cantonese/leon-lai/2017-viutv-interviu/lesson.json'
+import viutvMetadata from '../content/cantonese/leon-lai/2017-viutv-interviu/metadata.json'
+import viutvTranslations from '../content/cantonese/leon-lai/2017-viutv-interviu/translations-zh-CN.json'
+import crhkShortAudioUrl from '../content/cantonese/leon-lai/2016-crhk-903-short-interview/audio.mp3?url'
+import crhkShortCoverUrl from '../content/cantonese/leon-lai/2016-crhk-903-short-interview/cover.jpg?url'
+import crhkShortLessonData from '../content/cantonese/leon-lai/2016-crhk-903-short-interview/lesson.json'
+import crhkShortMetadata from '../content/cantonese/leon-lai/2016-crhk-903-short-interview/metadata.json'
+import crhkShortTranslations from '../content/cantonese/leon-lai/2016-crhk-903-short-interview/translations-zh-CN.json'
+import crhkFullAudioUrl from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/audio.mp3?url'
+import crhkFullCoverUrl from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/cover.jpg?url'
+import crhkFullLessonData from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/lesson.json'
+import crhkFullMetadata from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/metadata.json'
+import crhkFullTranslations from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/translations-zh-CN.json'
+import radio1993AudioUrl from '../content/cantonese/leon-lai/1993-radio-interview/audio.mp3?url'
+import radio1993CoverUrl from '../content/cantonese/leon-lai/1993-radio-interview/cover.jpg?url'
+import radio1993LessonData from '../content/cantonese/leon-lai/1993-radio-interview/lesson.json'
+import radio1993Metadata from '../content/cantonese/leon-lai/1993-radio-interview/metadata.json'
+import radio1993Translations from '../content/cantonese/leon-lai/1993-radio-interview/translations-zh-CN.json'
 
 type Segment = {
   id: number
@@ -72,6 +97,7 @@ type Lesson = {
   year: number
   sourceUrl: string
   sourceKind: string
+  language: string
   coverUrl: string
   audioUrl: string
   audioSourceUrl: string
@@ -88,8 +114,8 @@ type LessonCollection = {
 }
 
 function createLesson(
-  lessonData: Omit<Lesson, 'year' | 'sourceKind' | 'coverUrl' | 'audioUrl' | 'audioSourceUrl' | 'captionSourceUrl' | 'durationSeconds' | 'segments'> & { segments: Segment[] },
-  metadata: { date: string; durationSeconds: number; transcript: { kind: string }; audio: { sourceUrl: string }; captions: { sourceVideoUrl: string } },
+  lessonData: Omit<Lesson, 'year' | 'sourceKind' | 'language' | 'coverUrl' | 'audioUrl' | 'audioSourceUrl' | 'captionSourceUrl' | 'durationSeconds' | 'segments'> & { segments: Segment[] },
+  metadata: { date: string; language?: string; durationSeconds: number; transcript: { kind: string }; audio: { sourceUrl: string }; captions: { sourceVideoUrl: string } },
   translations: { translations: Record<string, string> },
   audioUrl: string,
   coverUrl: string,
@@ -98,6 +124,7 @@ function createLesson(
     ...lessonData,
     year: Number(metadata.date.slice(0, 4)),
     sourceKind: metadata.transcript.kind,
+    language: metadata.language || 'en-US',
     coverUrl,
     audioUrl,
     audioSourceUrl: metadata.audio.sourceUrl,
@@ -124,9 +151,18 @@ const tedLessons: Lesson[] = [
   createLesson(economyLessonData, economyMetadata, economyTranslations, economyAudioUrl, economyCoverUrl),
 ]
 
+const leonLessons: Lesson[] = [
+  createLesson(lineEntertainmentLessonData, lineEntertainmentMetadata, lineEntertainmentTranslations, lineEntertainmentAudioUrl, lineEntertainmentCoverUrl),
+  createLesson(viutvLessonData, viutvMetadata, viutvTranslations, viutvAudioUrl, viutvCoverUrl),
+  createLesson(crhkShortLessonData, crhkShortMetadata, crhkShortTranslations, crhkShortAudioUrl, crhkShortCoverUrl),
+  createLesson(crhkFullLessonData, crhkFullMetadata, crhkFullTranslations, crhkFullAudioUrl, crhkFullCoverUrl),
+  createLesson(radio1993LessonData, radio1993Metadata, radio1993Translations, radio1993AudioUrl, radio1993CoverUrl),
+]
+
 const collections: LessonCollection[] = [
   { id: 'donald-trump', title: '特朗普演讲', shortTitle: '特朗普', lessons: trumpLessons },
   { id: 'ted-talks', title: 'TED 演讲', shortTitle: 'TED', lessons: tedLessons },
+  { id: 'leon-lai-cantonese', title: '黎明粤语访谈', shortTitle: '黎明', lessons: leonLessons },
 ]
 
 const lessons = collections.flatMap((collection) => collection.lessons)
@@ -348,7 +384,7 @@ function App() {
             </select>
           </div>
           <div className="breadcrumb"><span>素材库</span><i>/</i><span>{collection.title}</span><i>/</i><strong>{lesson.title}</strong></div>
-          <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'caption-transcript' ? '字幕稿' : '官方稿'}</a>
+          <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'caption-transcript' || lesson.sourceKind === 'machine-transcript' ? '字幕稿' : '官方稿'}</a>
         </header>
 
         <div className="listening-stage">
@@ -359,7 +395,7 @@ function App() {
               <i />
             </div>
             <div className="album-meta">
-              <div className="meta-tags"><span>{collection.shortTitle}</span><span>中英双语</span><span>{lesson.level}</span><span>{lesson.year}</span></div>
+              <div className="meta-tags"><span>{collection.shortTitle}</span><span>{lesson.language === 'yue-Hant-HK' ? '粤语原声' : '中英双语'}</span><span>{lesson.language === 'yue-Hant-HK' ? '繁体字幕' : lesson.level}</span><span>{lesson.year}</span></div>
               <h1>{lesson.title}</h1>
               <p>{lesson.speaker}</p>
               <div className="album-facts"><span><Clock3 size={15} />{lesson.minutes} 分钟</span><span><ListMusic size={15} />{lesson.segments.length} 句</span></div>
@@ -383,7 +419,7 @@ function App() {
                   onClick={() => seekSegment(index)}
                 >
                   <small>{formatTime(segment.start)}</small>
-                  <span className="lyric-copy"><strong>{segment.text}</strong><em>{segment.translation}</em></span>
+                  <span className="lyric-copy"><strong>{segment.text}</strong>{segment.translation && <em>{segment.translation}</em>}</span>
                   {index === activeIndex && <i />}
                 </button>
               ))}
