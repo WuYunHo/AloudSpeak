@@ -1,0 +1,47 @@
+{
+  "id": "ted-wendy-suzuki-brain-changing-benefits-of-exercise",
+  "title": "The brain-changing benefits of exercise",
+  "localizedTitle": "爱运动的人更聪明，更健康！",
+  "speaker": "Wendy Suzuki",
+  "date": "2018-02-28",
+  "location": "TED",
+  "language": "en-US",
+  "durationSeconds": 773.54,
+  "transcript": {
+    "file": "transcript-en.md",
+    "translatedFile": "transcript-zh-CN.md",
+    "sourceUrl": "https://www.ted.com/talks/wendy_suzuki_the_brain_changing_benefits_of_exercise/transcript?language=en",
+    "translationSourceUrl": "https://www.ted.com/talks/wendy_suzuki_the_brain_changing_benefits_of_exercise/transcript?language=zh-cn",
+    "sourcePublisher": "TED",
+    "kind": "official-transcript",
+    "paragraphCount": 38
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://www.ted.com/talks/wendy_suzuki_the_brain_changing_benefits_of_exercise/transcript?language=en",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=2",
+    "cueCount": 245,
+    "segmentCount": 127,
+    "timelineAlignment": {
+      "offsetSeconds": 3.4,
+      "sourceTimeline": "TED transcript cues",
+      "targetTimeline": "Bilibili audio",
+      "calibration": "Opening, midpoint, and late-talk samples checked against Bilibili burned-in captions."
+    }
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 12377232,
+    "sha256": "a6f11ec0eba51096b8a3120a692045bea011071d28820e86e05bb48ac09af12c",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=2",
+    "sourceCid": 33622196378,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 75430,
+    "sha256": "26358bdded8ba975e3b47e3fa513bbe0171de469f06414100a74e8a3855164dc",
+    "sourceUrl": "https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/5063f9ae-75ed-4c66-a1aa-38956ba57591/WendySuzuki_2017W-embed.jpg?w=1200"
+  }
+}

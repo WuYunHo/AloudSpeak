@@ -1,0 +1,47 @@
+{
+  "id": "ted-kate-raworth-healthy-economy-should-thrive-not-grow",
+  "title": "A healthy economy should be designed to thrive, not grow",
+  "localizedTitle": "健康的经济应该以繁荣为目的，而不只是增长",
+  "speaker": "Kate Raworth",
+  "date": "2018-05-14",
+  "location": "TED",
+  "language": "en-US",
+  "durationSeconds": 944.48,
+  "transcript": {
+    "file": "transcript-en.md",
+    "translatedFile": "transcript-zh-CN.md",
+    "sourceUrl": "https://www.ted.com/talks/kate_raworth_a_healthy_economy_should_be_designed_to_thrive_not_grow/transcript?language=en",
+    "translationSourceUrl": "https://www.ted.com/talks/kate_raworth_a_healthy_economy_should_be_designed_to_thrive_not_grow/transcript?language=zh-cn",
+    "sourcePublisher": "TED",
+    "kind": "official-transcript",
+    "paragraphCount": 27
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://www.ted.com/talks/kate_raworth_a_healthy_economy_should_be_designed_to_thrive_not_grow/transcript?language=en",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=5",
+    "cueCount": 281,
+    "segmentCount": 106,
+    "timelineAlignment": {
+      "offsetSeconds": 3.4,
+      "sourceTimeline": "TED transcript cues",
+      "targetTimeline": "Bilibili audio",
+      "calibration": "Opening, midpoint, and late-talk samples checked against Bilibili burned-in captions."
+    }
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 15112357,
+    "sha256": "94087c5466f0e79f86c1f0f8045b760cdc29cd1d8f4d0a9bdf3d600554df1600",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=5",
+    "sourceCid": 33622262560,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 63877,
+    "sha256": "a11feab7ee3e134305438400f6da91c95c1fd4ba554fc4bbea9be03ee5d0bd7e",
+    "sourceUrl": "https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/ba7d2b7a-20a1-401d-8d8b-bc0b5b8c8f59/KateRaworth_2018-embed.jpg?w=1200"
+  }
+}

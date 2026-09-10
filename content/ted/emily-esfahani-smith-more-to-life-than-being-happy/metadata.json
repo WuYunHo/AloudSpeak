@@ -1,0 +1,47 @@
+{
+  "id": "ted-emily-esfahani-smith-more-to-life-than-being-happy",
+  "title": "There's more to life than being happy",
+  "localizedTitle": "人生不只是要快乐",
+  "speaker": "Emily Esfahani Smith",
+  "date": "2017-09-12",
+  "location": "TED",
+  "language": "en-US",
+  "durationSeconds": 728.95,
+  "transcript": {
+    "file": "transcript-en.md",
+    "translatedFile": "transcript-zh-CN.md",
+    "sourceUrl": "https://www.ted.com/talks/emily_esfahani_smith_there_s_more_to_life_than_being_happy/transcript?language=en",
+    "translationSourceUrl": "https://www.ted.com/talks/emily_esfahani_smith_there_s_more_to_life_than_being_happy/transcript?language=zh-cn",
+    "sourcePublisher": "TED",
+    "kind": "official-transcript",
+    "paragraphCount": 20
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://www.ted.com/talks/emily_esfahani_smith_there_s_more_to_life_than_being_happy/transcript?language=en",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=1",
+    "cueCount": 241,
+    "segmentCount": 129,
+    "timelineAlignment": {
+      "offsetSeconds": 3.4,
+      "sourceTimeline": "TED transcript cues",
+      "targetTimeline": "Bilibili audio",
+      "calibration": "Opening, midpoint, and late-talk samples checked against Bilibili burned-in captions."
+    }
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 11663776,
+    "sha256": "ee717b1990b80cdbe0464a8828c1b9a868d8a3a9d266c2175ca7affd29b50abf",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=1",
+    "sourceCid": 33622133700,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 44755,
+    "sha256": "5ef29b59bce8fbac668dc27140672c2d0bc1e365044df8817c7338178a1fcbdd",
+    "sourceUrl": "https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/500cb54f-211f-4f7d-8202-a99507891b80/EmilyEsfahaniSmith_2017-embed.jpg?w=1200"
+  }
+}

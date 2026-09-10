@@ -27,6 +27,31 @@ import nationAudioUrl from '../content/donald-trump/2020-address-to-the-nation/a
 import nationLessonData from '../content/donald-trump/2020-address-to-the-nation/lesson.json'
 import nationMetadata from '../content/donald-trump/2020-address-to-the-nation/metadata.json'
 import nationTranslations from '../content/donald-trump/2020-address-to-the-nation/translations-zh-CN.json'
+import meaningAudioUrl from '../content/ted/emily-esfahani-smith-more-to-life-than-being-happy/audio.mp3?url'
+import meaningCoverUrl from '../content/ted/emily-esfahani-smith-more-to-life-than-being-happy/cover.jpg?url'
+import meaningLessonData from '../content/ted/emily-esfahani-smith-more-to-life-than-being-happy/lesson.json'
+import meaningMetadata from '../content/ted/emily-esfahani-smith-more-to-life-than-being-happy/metadata.json'
+import meaningTranslations from '../content/ted/emily-esfahani-smith-more-to-life-than-being-happy/translations-zh-CN.json'
+import exerciseAudioUrl from '../content/ted/wendy-suzuki-brain-changing-benefits-of-exercise/audio.mp3?url'
+import exerciseCoverUrl from '../content/ted/wendy-suzuki-brain-changing-benefits-of-exercise/cover.jpg?url'
+import exerciseLessonData from '../content/ted/wendy-suzuki-brain-changing-benefits-of-exercise/lesson.json'
+import exerciseMetadata from '../content/ted/wendy-suzuki-brain-changing-benefits-of-exercise/metadata.json'
+import exerciseTranslations from '../content/ted/wendy-suzuki-brain-changing-benefits-of-exercise/translations-zh-CN.json'
+import leadershipAudioUrl from '../content/ted/anjali-sud-how-great-leaders-take-on-uncertainty/audio.mp3?url'
+import leadershipCoverUrl from '../content/ted/anjali-sud-how-great-leaders-take-on-uncertainty/cover.jpg?url'
+import leadershipLessonData from '../content/ted/anjali-sud-how-great-leaders-take-on-uncertainty/lesson.json'
+import leadershipMetadata from '../content/ted/anjali-sud-how-great-leaders-take-on-uncertainty/metadata.json'
+import leadershipTranslations from '../content/ted/anjali-sud-how-great-leaders-take-on-uncertainty/translations-zh-CN.json'
+import brokenAudioUrl from '../content/ted/daniel-alexander-jones-what-to-do-when-everything-feels-broken/audio.mp3?url'
+import brokenCoverUrl from '../content/ted/daniel-alexander-jones-what-to-do-when-everything-feels-broken/cover.jpg?url'
+import brokenLessonData from '../content/ted/daniel-alexander-jones-what-to-do-when-everything-feels-broken/lesson.json'
+import brokenMetadata from '../content/ted/daniel-alexander-jones-what-to-do-when-everything-feels-broken/metadata.json'
+import brokenTranslations from '../content/ted/daniel-alexander-jones-what-to-do-when-everything-feels-broken/translations-zh-CN.json'
+import economyAudioUrl from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/audio.mp3?url'
+import economyCoverUrl from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/cover.jpg?url'
+import economyLessonData from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/lesson.json'
+import economyMetadata from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/metadata.json'
+import economyTranslations from '../content/ted/kate-raworth-healthy-economy-should-thrive-not-grow/translations-zh-CN.json'
 
 type Segment = {
   id: number
@@ -81,6 +106,11 @@ const lessons: Lesson[] = [
   createLesson(trumpLessonData, trumpMetadata, trumpTranslations, trumpAudioUrl, '/cover-inaugural.jpg'),
   createLesson(syriaLessonData, syriaMetadata, syriaTranslations, syriaAudioUrl, '/cover-syria.jpg'),
   createLesson(nationLessonData, nationMetadata, nationTranslations, nationAudioUrl, '/cover-nation.jpg'),
+  createLesson(meaningLessonData, meaningMetadata, meaningTranslations, meaningAudioUrl, meaningCoverUrl),
+  createLesson(exerciseLessonData, exerciseMetadata, exerciseTranslations, exerciseAudioUrl, exerciseCoverUrl),
+  createLesson(leadershipLessonData, leadershipMetadata, leadershipTranslations, leadershipAudioUrl, leadershipCoverUrl),
+  createLesson(brokenLessonData, brokenMetadata, brokenTranslations, brokenAudioUrl, brokenCoverUrl),
+  createLesson(economyLessonData, economyMetadata, economyTranslations, economyAudioUrl, economyCoverUrl),
 ]
 
 const totalSegments = lessons.reduce((total, lesson) => total + lesson.segments.length, 0)
@@ -266,7 +296,7 @@ function App() {
             </select>
           </div>
           <div className="breadcrumb"><span>素材库</span><i>/</i><strong>{lesson.title}</strong></div>
-          <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'prepared-remarks' ? '官方稿' : '字幕稿'}</a>
+          <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'caption-transcript' ? '字幕稿' : '官方稿'}</a>
         </header>
 
         <div className="listening-stage">

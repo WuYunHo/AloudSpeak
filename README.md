@@ -29,8 +29,6 @@ npm run check:visual
 
 跟读录音、听写和读写训练暂不包含在当前界面中。
 
-示例封面照片来自 Unsplash：`photo-1475721027785-f74eccf877e2`。
-
 ## Source material
 
 `content/donald-trump/` 目前包含 3 套真实素材，共 202 个双语时间段：
@@ -54,4 +52,27 @@ Historical Archive 的官方准备稿，2018 演讲保存由字幕整理的文�
 ```bash
 npm run fetch:trump:addresses
 npm run verify:trump:materials
+```
+
+`content/ted/` 包含指定 Bilibili 合集 P1-P5 对应的 5 套 TED 素材，共 638 个
+双语时间段：
+
+- Emily Esfahani Smith：`There's more to life than being happy`
+- Wendy Suzuki：`The brain-changing benefits of exercise`
+- Anjali Sud and Stephanie Mehta：`How great leaders take on uncertainty`
+- Daniel Alexander Jones：`What to do when everything feels broken`
+- Kate Raworth：`A healthy economy should be designed to thrive, not grow`
+
+每套 TED 目录包含 `audio.mp3`、`cover.jpg`、`transcript-en.md`、
+`transcript-zh-CN.md`、`captions-en.vtt`、`lesson.json`、
+`translations-zh-CN.json` 和 `metadata.json`。音频来自用户指定的 Bilibili 合集
+P1-P5，英文稿、简体中文译文和封面来自对应的 TED 官方页面；具体来源、分 P、
+CID、文件哈希和权利说明记录在各目录的 `metadata.json` 中。
+
+运行以下命令可补齐或重新生成 TED 素材，并验证音频、封面、哈希、时间轴和译文
+覆盖率：
+
+```bash
+npm run fetch:ted:bilibili
+npm run verify:ted:materials
 ```

@@ -10,8 +10,10 @@
     "check:visual": "node scripts/visual-check.mjs",
     "fetch:trump:inaugural": "node scripts/fetch-trump-inaugural.mjs",
     "fetch:trump:addresses": "node scripts/fetch-trump-addresses.mjs",
+    "fetch:ted:bilibili": "node scripts/fetch-ted-bilibili.mjs",
     "verify:trump:inaugural": "node scripts/verify-trump-inaugural.mjs",
-    "verify:trump:materials": "node scripts/verify-trump-materials.mjs"
+    "verify:trump:materials": "node scripts/verify-trump-materials.mjs",
+    "verify:ted:materials": "node scripts/verify-ted-materials.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

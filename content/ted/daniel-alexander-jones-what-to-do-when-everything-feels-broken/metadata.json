@@ -1,0 +1,47 @@
+{
+  "id": "ted-daniel-alexander-jones-what-to-do-when-everything-feels-broken",
+  "title": "What to do when everything feels broken",
+  "localizedTitle": "当一切都陷入困境时，我们该怎么办？",
+  "speaker": "Daniel Alexander Jones",
+  "date": "2020-08-14",
+  "location": "TED",
+  "language": "en-US",
+  "durationSeconds": 400.17,
+  "transcript": {
+    "file": "transcript-en.md",
+    "translatedFile": "transcript-zh-CN.md",
+    "sourceUrl": "https://www.ted.com/talks/daniel_alexander_jones_what_to_do_when_everything_feels_broken/transcript?language=en",
+    "translationSourceUrl": "https://www.ted.com/talks/daniel_alexander_jones_what_to_do_when_everything_feels_broken/transcript?language=zh-cn",
+    "sourcePublisher": "TED",
+    "kind": "official-transcript",
+    "paragraphCount": 13
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://www.ted.com/talks/daniel_alexander_jones_what_to_do_when_everything_feels_broken/transcript?language=en",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=4",
+    "cueCount": 120,
+    "segmentCount": 76,
+    "timelineAlignment": {
+      "offsetSeconds": 3.4,
+      "sourceTimeline": "TED transcript cues",
+      "targetTimeline": "Bilibili audio",
+      "calibration": "Opening, midpoint, and late-talk samples checked against Bilibili burned-in captions."
+    }
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 6403341,
+    "sha256": "453b6e74bf4d766005e0ba5dc3780ad22383d6b007c3b1f22854c4bfead5d2d8",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=4",
+    "sourceCid": 33622199729,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 83489,
+    "sha256": "0d43243ba6fa8a11f6a69631422f93322871fc7289f9af7743c6fa35cc60f908",
+    "sourceUrl": "https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/0b59e4c3-0f74-49c1-9f01-b4c3835b0bf7/DanielAlexanderJones_2020-embed.jpg?w=1200"
+  }
+}

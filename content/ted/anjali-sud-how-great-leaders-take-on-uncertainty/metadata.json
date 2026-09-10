@@ -1,0 +1,47 @@
+{
+  "id": "ted-anjali-sud-how-great-leaders-take-on-uncertainty",
+  "title": "How great leaders take on uncertainty",
+  "localizedTitle": "成功人士是如何应对挑战的？",
+  "speaker": "Anjali Sud and Stephanie Mehta",
+  "date": "2022-12-08",
+  "location": "TED",
+  "language": "en-US",
+  "durationSeconds": 1396.01,
+  "transcript": {
+    "file": "transcript-en.md",
+    "translatedFile": "transcript-zh-CN.md",
+    "sourceUrl": "https://www.ted.com/talks/anjali_sud_and_stephanie_mehta_how_great_leaders_take_on_uncertainty/transcript?language=en",
+    "translationSourceUrl": "https://www.ted.com/talks/anjali_sud_and_stephanie_mehta_how_great_leaders_take_on_uncertainty/transcript?language=zh-cn",
+    "sourcePublisher": "TED",
+    "kind": "official-transcript",
+    "paragraphCount": 26
+  },
+  "captions": {
+    "file": "captions-en.vtt",
+    "sourceUrl": "https://www.ted.com/talks/anjali_sud_and_stephanie_mehta_how_great_leaders_take_on_uncertainty/transcript?language=en",
+    "sourceVideoUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=3",
+    "cueCount": 458,
+    "segmentCount": 200,
+    "timelineAlignment": {
+      "offsetSeconds": 3.4,
+      "sourceTimeline": "TED transcript cues",
+      "targetTimeline": "Bilibili audio",
+      "calibration": "Opening, midpoint, and late-talk samples checked against Bilibili burned-in captions."
+    }
+  },
+  "audio": {
+    "file": "audio.mp3",
+    "bytes": 22336781,
+    "sha256": "61c3858834a3c8d2f519424e17cd0c2de27ce853065215196a4a32be3fe6b73b",
+    "mimeType": "audio/mpeg",
+    "sourceUrl": "https://www.bilibili.com/video/BV1UbyZB9ERb/?p=3",
+    "sourceCid": 33622197754,
+    "rights": "Source platform terms apply; collected for local educational use."
+  },
+  "cover": {
+    "file": "cover.jpg",
+    "bytes": 89902,
+    "sha256": "897eac07017eec4e5e42b45fc3490b424a28d62ba32784cca32c082d6f331e3f",
+    "sourceUrl": "https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/2ec6ea96-b167-4ea9-846f-e811dc871e29/AnjaliSud_StephanieMehta_2022W-embed.jpg?w=1200"
+  }
+}
