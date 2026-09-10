@@ -30,7 +30,13 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .side-nav > div.active { color: #fff; background: #34483c; }
 .side-nav > div.active svg { color: #9ed0af; }
 .playlist-heading { margin: 27px 7px 10px; padding-top: 18px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #354039; color: #79827b; font-size: 10px; font-weight: 800; letter-spacing: .8px; text-transform: uppercase; }
-.playlist { display: grid; gap: 3px; }
+.playlist-heading small { min-width: 20px; height: 18px; display: grid; place-items: center; border-radius: 3px; color: #b8c0ba; background: #2a332d; font-size: 9px; letter-spacing: 0; }
+.playlist { min-height: 0; display: grid; align-content: start; gap: 11px; overflow-y: auto; scrollbar-width: none; }
+.playlist::-webkit-scrollbar { display: none; }
+.playlist-collection { display: grid; gap: 3px; }
+.collection-heading { height: 23px; padding: 0 9px; display: flex; align-items: center; justify-content: space-between; color: #929d95; }
+.collection-heading strong { overflow: hidden; font-size: 10px; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+.collection-heading small { color: #667169; font-size: 8px; white-space: nowrap; }
 .playlist-item { position: relative; width: 100%; min-width: 0; padding: 9px; display: flex; align-items: center; gap: 9px; text-align: left; border: 0; border-radius: 6px; color: #dfe4e0; background: transparent; }
 .playlist-item:hover { background: #263029; cursor: pointer; }
 .playlist-item.active { background: #2b342e; }
@@ -140,9 +146,10 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
   .player-shell { grid-template-columns: 78px minmax(0, 1fr); }
   .sidebar { padding-inline: 13px; align-items: center; }
   .brand { padding: 0; }
-  .brand > span:last-child, .side-nav span, .playlist-heading, .playlist-item > span, .source-note, .profile div, .profile svg { display: none; }
+  .brand > span:last-child, .side-nav span, .playlist-heading, .collection-heading, .playlist-item > span, .source-note, .profile div, .profile svg { display: none; }
   .side-nav > div { width: 48px; padding: 0; justify-content: center; }
-  .playlist { width: 100%; margin-top: 24px; gap: 7px; }
+  .playlist { width: 100%; margin-top: 24px; gap: 10px; }
+  .playlist-collection { gap: 7px; }
   .playlist-item { padding: 6px; justify-content: center; }
   .playlist-item img { width: 38px; height: 38px; }
   .sidebar-space { flex: 1; }

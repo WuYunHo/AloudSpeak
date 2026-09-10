@@ -32,6 +32,11 @@ async function checkViewport(name, viewport) {
   if (layout.playerOverlapsStage) errors.push(`${name}: player overlaps the listening stage`)
   if (!layout.lyricsScrollable) errors.push(`${name}: lyrics viewport is not scrollable`)
 
+  const collectionCount = name === 'desktop'
+    ? await page.locator('.playlist-collection').count()
+    : await page.locator('.mobile-lesson-select optgroup').count()
+  if (collectionCount !== 2) errors.push(`${name}: expected two lesson collections, found ${collectionCount}`)
+
   await page.screenshot({ path: `${outputDir}/${name}.png` })
 
   if (name === 'desktop') {
@@ -41,6 +46,8 @@ async function checkViewport(name, viewport) {
     await page.locator('.playlist-item').nth(2).click()
     await page.getByRole('heading', { name: 'Address to the Nation', level: 1, exact: true }).waitFor()
     await page.locator('.lyric-line').first().getByText(/新冠病毒疫情/).waitFor()
+    await page.locator('.playlist-collection').nth(1).locator('.playlist-item').first().click()
+    await page.getByRole('heading', { name: "There's more to life than being happy", level: 1 }).waitFor()
     await page.locator('.playlist-item').first().click()
     await page.getByRole('heading', { name: 'The Inaugural Address', level: 1 }).waitFor()
   } else {
@@ -48,6 +55,8 @@ async function checkViewport(name, viewport) {
     await page.getByRole('heading', { name: 'Address to the Nation on Syria', level: 1 }).waitFor()
     await page.getByLabel('选择演讲素材').selectOption('donald-trump-2020-address-to-the-nation')
     await page.getByRole('heading', { name: 'Address to the Nation', level: 1, exact: true }).waitFor()
+    await page.getByLabel('选择演讲素材').selectOption('ted-emily-esfahani-smith-more-to-life-than-being-happy')
+    await page.getByRole('heading', { name: "There's more to life than being happy", level: 1 }).waitFor()
     await page.getByLabel('选择演讲素材').selectOption('donald-trump-2017-inaugural-address')
   }
 

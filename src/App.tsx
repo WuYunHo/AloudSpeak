@@ -79,6 +79,13 @@ type Lesson = {
   segments: Segment[]
 }
 
+type LessonCollection = {
+  id: string
+  title: string
+  shortTitle: string
+  lessons: Lesson[]
+}
+
 function createLesson(
   lessonData: Omit<Lesson, 'year' | 'sourceKind' | 'coverUrl' | 'audioUrl' | 'audioSourceUrl' | 'captionSourceUrl' | 'durationSeconds' | 'segments'> & { segments: Segment[] },
   metadata: { date: string; durationSeconds: number; transcript: { kind: string }; audio: { sourceUrl: string }; captions: { sourceVideoUrl: string } },
@@ -102,10 +109,13 @@ function createLesson(
   }
 }
 
-const lessons: Lesson[] = [
+const trumpLessons: Lesson[] = [
   createLesson(trumpLessonData, trumpMetadata, trumpTranslations, trumpAudioUrl, '/cover-inaugural.jpg'),
   createLesson(syriaLessonData, syriaMetadata, syriaTranslations, syriaAudioUrl, '/cover-syria.jpg'),
   createLesson(nationLessonData, nationMetadata, nationTranslations, nationAudioUrl, '/cover-nation.jpg'),
+]
+
+const tedLessons: Lesson[] = [
   createLesson(meaningLessonData, meaningMetadata, meaningTranslations, meaningAudioUrl, meaningCoverUrl),
   createLesson(exerciseLessonData, exerciseMetadata, exerciseTranslations, exerciseAudioUrl, exerciseCoverUrl),
   createLesson(leadershipLessonData, leadershipMetadata, leadershipTranslations, leadershipAudioUrl, leadershipCoverUrl),
@@ -113,6 +123,12 @@ const lessons: Lesson[] = [
   createLesson(economyLessonData, economyMetadata, economyTranslations, economyAudioUrl, economyCoverUrl),
 ]
 
+const collections: LessonCollection[] = [
+  { id: 'donald-trump', title: '特朗普演讲', shortTitle: '特朗普', lessons: trumpLessons },
+  { id: 'ted-talks', title: 'TED 演讲', shortTitle: 'TED', lessons: tedLessons },
+]
+
+const lessons = collections.flatMap((collection) => collection.lessons)
 const totalSegments = lessons.reduce((total, lesson) => total + lesson.segments.length, 0)
 
 const speeds = [0.75, 0.85, 1, 1.25]
@@ -150,6 +166,7 @@ function App() {
   const lyricsViewportRef = useRef<HTMLDivElement | null>(null)
   const lyricLineRefs = useRef<(HTMLButtonElement | null)[]>([])
   const lesson = lessons[lessonIndex]
+  const collection = collections.find((item) => item.lessons.some(({ id }) => id === lesson.id)) ?? collections[0]
   const isLiked = Boolean(likedLessons[lesson.id])
 
   const activeIndex = useMemo(
@@ -260,25 +277,33 @@ function App() {
       <aside className="sidebar">
         <div className="brand"><span className="brand-mark"><AudioLines size={19} /></span><span>ECHO</span></div>
         <div className="side-nav"><div className="active"><Headphones size={19} /><span>正在播放</span></div></div>
-        <div className="playlist-heading"><span>当前素材</span></div>
+        <div className="playlist-heading"><span>演讲合集</span><small>{collections.length}</small></div>
         <div className="playlist">
-          {lessons.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
-              className={`playlist-item ${index === lessonIndex ? 'active' : ''}`}
-              onClick={() => selectLesson(index)}
-              title={`${item.title} (${item.year})`}
-              aria-pressed={index === lessonIndex}
-            >
-              <img src={item.coverUrl} alt="" />
-              <span><strong>{item.title}</strong><small>{item.year} · {item.minutes} 分钟</small></span>
-              {index === lessonIndex && <i />}
-            </button>
+          {collections.map((itemCollection) => (
+            <section className="playlist-collection" key={itemCollection.id} aria-label={itemCollection.title}>
+              <div className="collection-heading"><strong>{itemCollection.title}</strong><small>{itemCollection.lessons.length} 篇</small></div>
+              {itemCollection.lessons.map((item) => {
+                const index = lessons.findIndex(({ id }) => id === item.id)
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={`playlist-item ${index === lessonIndex ? 'active' : ''}`}
+                    onClick={() => selectLesson(index)}
+                    title={`${item.title} (${item.year})`}
+                    aria-pressed={index === lessonIndex}
+                  >
+                    <img src={item.coverUrl} alt="" />
+                    <span><strong>{item.title}</strong><small>{item.year} · {item.minutes} 分钟</small></span>
+                    {index === lessonIndex && <i />}
+                  </button>
+                )
+              })}
+            </section>
           ))}
         </div>
         <div className="sidebar-space" />
-        <div className="source-note"><ListMusic size={17} /><div><strong>{lessons.length} 套真实素材</strong><span>{totalSegments} 个时间段</span></div></div>
+        <div className="source-note"><ListMusic size={17} /><div><strong>{collections.length} 个演讲合集</strong><span>{lessons.length} 篇 · {totalSegments} 个时间段</span></div></div>
         <div className="profile"><span>Y</span><div><strong>Yuki</strong><small>Listener</small></div></div>
       </aside>
 
@@ -292,10 +317,14 @@ function App() {
               onChange={(event) => selectLesson(lessons.findIndex((item) => item.id === event.target.value))}
               aria-label="选择演讲素材"
             >
-              {lessons.map((item) => <option key={item.id} value={item.id}>{item.year} · {item.title}</option>)}
+              {collections.map((itemCollection) => (
+                <optgroup key={itemCollection.id} label={`${itemCollection.title} · ${itemCollection.lessons.length} 篇`}>
+                  {itemCollection.lessons.map((item) => <option key={item.id} value={item.id}>{item.year} · {item.title}</option>)}
+                </optgroup>
+              ))}
             </select>
           </div>
-          <div className="breadcrumb"><span>素材库</span><i>/</i><strong>{lesson.title}</strong></div>
+          <div className="breadcrumb"><span>素材库</span><i>/</i><span>{collection.title}</span><i>/</i><strong>{lesson.title}</strong></div>
           <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'caption-transcript' ? '字幕稿' : '官方稿'}</a>
         </header>
 
@@ -307,7 +336,7 @@ function App() {
               <i />
             </div>
             <div className="album-meta">
-              <div className="meta-tags"><span>原声</span><span>中英双语</span><span>{lesson.level}</span><span>{lesson.year}</span></div>
+              <div className="meta-tags"><span>{collection.shortTitle}</span><span>中英双语</span><span>{lesson.level}</span><span>{lesson.year}</span></div>
               <h1>{lesson.title}</h1>
               <p>{lesson.speaker}</p>
               <div className="album-facts"><span><Clock3 size={15} />{lesson.minutes} 分钟</span><span><ListMusic size={15} />{lesson.segments.length} 句</span></div>
