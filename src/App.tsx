@@ -46,6 +46,7 @@ type Lesson = {
   year: number
   sourceUrl: string
   sourceKind: string
+  coverUrl: string
   audioUrl: string
   audioSourceUrl: string
   captionSourceUrl: string
@@ -54,15 +55,17 @@ type Lesson = {
 }
 
 function createLesson(
-  lessonData: Omit<Lesson, 'year' | 'sourceKind' | 'audioUrl' | 'audioSourceUrl' | 'captionSourceUrl' | 'durationSeconds' | 'segments'> & { segments: Segment[] },
+  lessonData: Omit<Lesson, 'year' | 'sourceKind' | 'coverUrl' | 'audioUrl' | 'audioSourceUrl' | 'captionSourceUrl' | 'durationSeconds' | 'segments'> & { segments: Segment[] },
   metadata: { date: string; durationSeconds: number; transcript: { kind: string }; audio: { sourceUrl: string }; captions: { sourceVideoUrl: string } },
   translations: { translations: Record<string, string> },
   audioUrl: string,
+  coverUrl: string,
 ): Lesson {
   return {
     ...lessonData,
     year: Number(metadata.date.slice(0, 4)),
     sourceKind: metadata.transcript.kind,
+    coverUrl,
     audioUrl,
     audioSourceUrl: metadata.audio.sourceUrl,
     captionSourceUrl: metadata.captions.sourceVideoUrl,
@@ -75,9 +78,9 @@ function createLesson(
 }
 
 const lessons: Lesson[] = [
-  createLesson(trumpLessonData, trumpMetadata, trumpTranslations, trumpAudioUrl),
-  createLesson(syriaLessonData, syriaMetadata, syriaTranslations, syriaAudioUrl),
-  createLesson(nationLessonData, nationMetadata, nationTranslations, nationAudioUrl),
+  createLesson(trumpLessonData, trumpMetadata, trumpTranslations, trumpAudioUrl, '/cover-inaugural.jpg'),
+  createLesson(syriaLessonData, syriaMetadata, syriaTranslations, syriaAudioUrl, '/cover-syria.jpg'),
+  createLesson(nationLessonData, nationMetadata, nationTranslations, nationAudioUrl, '/cover-nation.jpg'),
 ]
 
 const totalSegments = lessons.reduce((total, lesson) => total + lesson.segments.length, 0)
@@ -238,7 +241,7 @@ function App() {
               title={`${item.title} (${item.year})`}
               aria-pressed={index === lessonIndex}
             >
-              <img src="/speaker-stage.jpg" alt="" />
+              <img src={item.coverUrl} alt="" />
               <span><strong>{item.title}</strong><small>{item.year} · {item.minutes} 分钟</small></span>
               {index === lessonIndex && <i />}
             </button>
@@ -252,7 +255,7 @@ function App() {
       <main className="main-area">
         <header className="topbar">
           <div className="mobile-track">
-            <img src="/speaker-stage.jpg" alt="" />
+            <img src={lesson.coverUrl} alt="" />
             <select
               className="mobile-lesson-select"
               value={lesson.id}
@@ -270,7 +273,7 @@ function App() {
           <section className="album-pane">
             <div className={`vinyl ${isPlaying ? 'playing' : ''}`}>
               <div className="vinyl-rings" />
-              <img src="/speaker-stage.jpg" alt="The Inaugural Address 封面" />
+              <img src={lesson.coverUrl} alt={`${lesson.title} 封面`} />
               <i />
             </div>
             <div className="album-meta">
@@ -310,7 +313,7 @@ function App() {
 
         <footer className="player-bar">
           <div className="now-playing">
-            <img src="/speaker-stage.jpg" alt="" />
+            <img src={lesson.coverUrl} alt="" />
             <span><strong>{lesson.title}</strong><small>{lesson.speaker}</small></span>
             <button className={isLiked ? 'liked' : ''} onClick={() => setLikedLessons((value) => ({ ...value, [lesson.id]: !value[lesson.id] }))} title="收藏"><Heart size={18} fill={isLiked ? 'currentColor' : 'none'} /></button>
           </div>

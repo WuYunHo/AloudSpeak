@@ -75,7 +75,7 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .meta-tags span { padding: 3px 7px; border-radius: 3px; color: #657169; background: #e2e7e2; font-size: 9px; font-weight: 800; text-transform: uppercase; }
 .meta-tags span:first-child { color: #9d302a; background: #f7dfdc; }
 .meta-tags span:nth-child(2) { color: #236346; background: #dcebe2; }
-.album-meta h1 { margin: 13px 0 4px; font-family: Georgia, "Times New Roman", serif; font-size: 30px; line-height: 1.2; letter-spacing: 0; }
+.album-meta h1 { height: 2.4em; margin: 13px 0 4px; display: grid; place-items: center; overflow: hidden; font-family: Georgia, "Times New Roman", serif; font-size: 30px; line-height: 1.2; letter-spacing: 0; }
 .album-meta > p { margin: 0; color: #676e69; font-size: 12px; }
 .album-facts { margin-top: 17px; display: flex; justify-content: center; gap: 18px; color: #747b75; }
 .album-facts span { display: flex; align-items: center; gap: 6px; font-size: 10px; }
@@ -177,7 +177,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
   .album-meta { min-width: 0; width: auto; margin: 0; flex: 1; text-align: left; }
   .meta-tags { justify-content: flex-start; }
   .meta-tags span { padding: 2px 5px; font-size: 7px; }
-  .album-meta h1 { margin: 9px 0 3px; overflow: hidden; font-size: 19px; text-overflow: ellipsis; white-space: nowrap; }
+  .album-meta h1 { height: auto; min-height: 0; margin: 9px 0 3px; display: block; overflow: hidden; font-size: 19px; text-overflow: ellipsis; white-space: nowrap; }
   .album-meta > p { font-size: 10px; }
   .album-facts { margin-top: 10px; justify-content: flex-start; gap: 12px; }
   .album-facts span { font-size: 8px; }
