@@ -40,6 +40,10 @@ async function checkViewport(name, viewport) {
   await page.screenshot({ path: `${outputDir}/${name}.png` })
 
   if (name === 'desktop') {
+    await page.getByRole('button', { name: '收起特朗普演讲合集' }).click()
+    if (await page.locator('#collection-donald-trump').count()) errors.push('desktop: collapsed collection still shows lessons')
+    await page.getByRole('button', { name: '展开特朗普演讲合集' }).click()
+    await page.locator('#collection-donald-trump').waitFor()
     await page.locator('.playlist-item').nth(1).click()
     await page.getByRole('heading', { name: 'Address to the Nation on Syria', level: 1 }).waitFor()
     await page.locator('.lyric-line').first().getByText(/不久前，我命令美国武装部队/).waitFor()

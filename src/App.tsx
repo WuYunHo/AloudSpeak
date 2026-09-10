@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import {
   AudioLines,
+  ChevronDown,
   Clock3,
   ExternalLink,
   Headphones,
@@ -154,6 +155,9 @@ function findActiveSegment(segments: Segment[], currentTime: number) {
 
 function App() {
   const [lessonIndex, setLessonIndex] = useState(0)
+  const [expandedCollections, setExpandedCollections] = useState<Record<string, boolean>>(
+    () => Object.fromEntries(collections.map(({ id }) => [id, true])),
+  )
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -272,6 +276,10 @@ function App() {
     setLessonIndex(index)
   }
 
+  const toggleCollection = (collectionId: string) => {
+    setExpandedCollections((value) => ({ ...value, [collectionId]: !value[collectionId] }))
+  }
+
   return (
     <div className="player-shell">
       <aside className="sidebar">
@@ -281,24 +289,39 @@ function App() {
         <div className="playlist">
           {collections.map((itemCollection) => (
             <section className="playlist-collection" key={itemCollection.id} aria-label={itemCollection.title}>
-              <div className="collection-heading"><strong>{itemCollection.title}</strong><small>{itemCollection.lessons.length} 篇</small></div>
-              {itemCollection.lessons.map((item) => {
-                const index = lessons.findIndex(({ id }) => id === item.id)
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className={`playlist-item ${index === lessonIndex ? 'active' : ''}`}
-                    onClick={() => selectLesson(index)}
-                    title={`${item.title} (${item.year})`}
-                    aria-pressed={index === lessonIndex}
-                  >
-                    <img src={item.coverUrl} alt="" />
-                    <span><strong>{item.title}</strong><small>{item.year} · {item.minutes} 分钟</small></span>
-                    {index === lessonIndex && <i />}
-                  </button>
-                )
-              })}
+              <button
+                type="button"
+                className={`collection-heading ${expandedCollections[itemCollection.id] ? '' : 'collapsed'}`}
+                onClick={() => toggleCollection(itemCollection.id)}
+                aria-expanded={expandedCollections[itemCollection.id]}
+                aria-controls={`collection-${itemCollection.id}`}
+                aria-label={`${expandedCollections[itemCollection.id] ? '收起' : '展开'}${itemCollection.title}合集`}
+                title={`${expandedCollections[itemCollection.id] ? '收起' : '展开'}${itemCollection.title}`}
+              >
+                <span><ChevronDown size={13} /><strong>{itemCollection.title}</strong></span>
+                <small>{itemCollection.lessons.length} 篇</small>
+              </button>
+              {expandedCollections[itemCollection.id] && (
+                <div className="collection-lessons" id={`collection-${itemCollection.id}`}>
+                  {itemCollection.lessons.map((item) => {
+                    const index = lessons.findIndex(({ id }) => id === item.id)
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        className={`playlist-item ${index === lessonIndex ? 'active' : ''}`}
+                        onClick={() => selectLesson(index)}
+                        title={`${item.title} (${item.year})`}
+                        aria-pressed={index === lessonIndex}
+                      >
+                        <img src={item.coverUrl} alt="" />
+                        <span><strong>{item.title}</strong><small>{item.year} · {item.minutes} 分钟</small></span>
+                        {index === lessonIndex && <i />}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
             </section>
           ))}
         </div>
