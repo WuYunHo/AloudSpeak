@@ -73,11 +73,6 @@ import crhkFullCoverUrl from '../content/cantonese/leon-lai/2016-crhk-903-full-i
 import crhkFullLessonData from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/lesson.json'
 import crhkFullMetadata from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/metadata.json'
 import crhkFullTranslations from '../content/cantonese/leon-lai/2016-crhk-903-full-interview/translations-zh-CN.json'
-import radio1993AudioUrl from '../content/cantonese/leon-lai/1993-radio-interview/audio.mp3?url'
-import radio1993CoverUrl from '../content/cantonese/leon-lai/1993-radio-interview/cover.jpg?url'
-import radio1993LessonData from '../content/cantonese/leon-lai/1993-radio-interview/lesson.json'
-import radio1993Metadata from '../content/cantonese/leon-lai/1993-radio-interview/metadata.json'
-import radio1993Translations from '../content/cantonese/leon-lai/1993-radio-interview/translations-zh-CN.json'
 
 type Segment = {
   id: number
@@ -156,7 +151,6 @@ const leonLessons: Lesson[] = [
   createLesson(viutvLessonData, viutvMetadata, viutvTranslations, viutvAudioUrl, viutvCoverUrl),
   createLesson(crhkShortLessonData, crhkShortMetadata, crhkShortTranslations, crhkShortAudioUrl, crhkShortCoverUrl),
   createLesson(crhkFullLessonData, crhkFullMetadata, crhkFullTranslations, crhkFullAudioUrl, crhkFullCoverUrl),
-  createLesson(radio1993LessonData, radio1993Metadata, radio1993Translations, radio1993AudioUrl, radio1993CoverUrl),
 ]
 
 const collections: LessonCollection[] = [
@@ -395,7 +389,7 @@ function App() {
               <i />
             </div>
             <div className="album-meta">
-              <div className="meta-tags"><span>{collection.shortTitle}</span><span>{lesson.language === 'yue-Hant-HK' ? '粤语原声' : '中英双语'}</span><span>{lesson.language === 'yue-Hant-HK' ? '繁体字幕' : lesson.level}</span><span>{lesson.year}</span></div>
+              <div className="meta-tags"><span>{collection.shortTitle}</span><span>{lesson.language === 'yue-Hant-HK' ? '粤语原声' : '中英双语'}</span><span>{lesson.language === 'yue-Hant-HK' ? '粤语逐字稿' : lesson.level}</span><span>{lesson.year}</span></div>
               <h1>{lesson.title}</h1>
               <p>{lesson.speaker}</p>
               <div className="album-facts"><span><Clock3 size={15} />{lesson.minutes} 分钟</span><span><ListMusic size={15} />{lesson.segments.length} 句</span></div>

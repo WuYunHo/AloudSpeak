@@ -4,23 +4,73 @@ import * as OpenCC from 'opencc-js'
 const toHongKongTraditional = OpenCC.Converter({ from: 'cn', to: 'hk' })
 
 const transcriptCorrections = new Map([
-  ['其實我一時而落這麼久', '我主持了這麼久的《一綫娛樂》'],
-  ['終於讓我等到這一天', '終於等到這一天了'],
-  ['就是和我的偶像黎明黎明來做訪問', '就是和我的偶像黎明做訪問'],
+  ['其實我一時而落這麼久', '其實我主持咗咁耐嘅《一綫娛樂》'],
+  ['終於讓我等到這一天', '終於畀我等到呢一日喇'],
+  ['就是和我的偶像黎明黎明來做訪問', '就係同我嘅偶像黎明做訪問'],
+  ['知道為何我會接受你ViuTV的訪問嗎', '知唔知點解我會接受你 ViuTV 嘅訪問呀？'],
   ['不聞其長', '願聞其詳'],
   ['人事關係、人物關係', '人事關係、人脈關係'],
   ['因為這次整個抱著春天', '因為今次這個《抱著春天》'],
   ['是我很久的朋友', '是我很多年的朋友'],
-  ['小爺杰 王二興 精於你', ''],
-  ['出現一隻過室，他都說，可否這些燈能夠浪漫一些，暗黃一些那些呢？', ''],
+  ['小爺傑 王二興 精於你', ''],
+  ['口水多過黃瓜', '口水多過浪花'],
+  ['因為我哋今日有跪客', '因為我哋今日有貴客'],
+  ['大謊話都説了幾年了', '大話都講咗幾年喇'],
+  ['又沒開始做節目', '又未開始做節目'],
+  ['Leon終於盼到今日了', 'Leon 終於等到今日喇'],
+  ['我頭先在問問Leon', '我頭先問問 Leon'],
+  ['可能我不問那麼多了', '可能我唔問咁多喇'],
+  ['真係很緊張', '真係好緊張'],
+  ['我要儲了一些勇氣', '我要儲咗啲勇氣'],
+  ['想在他面前', '想喺佢面前'],
+  ['儲了呢個勇氣', '儲咗呢個勇氣'],
+  ['緊張起來', '緊張起嚟'],
 ])
+
+// Whisper often normalizes spoken Cantonese into written Mandarin. These are
+// high-confidence lexical equivalents with distinct Cantonese pronunciation.
+const spokenCantonese = [
+  ['為甚麼', '點解'], ['為什麼', '點解'], ['怎麼樣', '點樣'], ['怎麼', '點'],
+  ['甚麼', '乜嘢'], ['什麼', '乜嘢'], ['我們', '我哋'], ['你們', '你哋'], ['他們', '佢哋'],
+  ['這個', '呢個'], ['這些', '呢啲'], ['這裡', '呢度'], ['那個', '嗰個'], ['那些', '嗰啲'],
+  ['那裡', '嗰度'], ['哪裡', '邊度'], ['現在', '而家'], ['今天', '今日'], ['明天', '聽日'],
+  ['剛才', '頭先'], ['一起', '一齊'], ['下班', '放工'], ['落班', '放工'], ['上班', '返工'],
+  ['回家', '返屋企'], ['沒有', '冇'], ['不是', '唔係'], ['真的', '真係'], ['很多', '好多'],
+  ['喜歡', '鍾意'], ['聊天', '傾偈'], ['吃飯', '食飯'], ['看見', '見到'], ['聽見', '聽到'],
+  ['說話', '講嘢'], ['給我', '畀我'], ['給你', '畀你'], ['給他', '畀佢'], ['孩子', '細路'],
+  ['一會兒', '一陣'], ['對著', '對住'], ['輕機', '傾偈'], ['不要緊', '唔緊要'], ['飛了', '飛咗'],
+  ['這麼', '咁'], ['不同', '唔同'], ['有些', '有啲'], ['些新的', '啲新嘅'], ['每天', '日日'],
+  ['看了', '睇咗'], ['看的', '睇嘅'], ['看', '睇'], ['說', '講'], ['是', '係'],
+  ['不會', '唔會'], ['不能', '唔能夠'], ['不要', '唔好'], ['不想', '唔想'], ['不需要', '唔使'],
+  ['不明白', '唔明'], ['接受你的', '接受你嘅'], ['籌備中的', '籌備緊嘅'], ['舊的', '舊嘅'],
+  ['真的', '真係'], ['的確', '確實'],
+  ['新的', '新嘅'], ['年的', '年嘅'], ['的對', '嘅對'], ['的朋友', '嘅朋友'],
+  ['的訪問', '嘅訪問'], ['的電視', '嘅電視'], ['的時間', '嘅時間'], ['的老友記', '嘅老友記'],
+  ['不知道', '唔知'], ['不接受', '唔接受'], ['不剪', '唔剪'], ['不會', '唔會'],
+  ['來了', '嚟喇'], ['玩了', '玩咗'], ['忘記了', '唔記得咗'], ['多久沒', '幾耐冇'], ['沒上', '冇上'],
+  ['給面', '畀面'], ['東西', '嘢'], ['對吧', '係咪'], ['對嗎', '係咪'],
+  ['抱著', '抱住'], ['在', '喺'], ['很', '好'], ['比你', '畀你'], ['比我', '畀我'],
+  ['剪掉', '剪咗'], ['些嘗試', '啲嘗試'], ['來説', '嚟講'], ['一點', '一啲'], ['好久', '好耐'],
+  ['不問', '唔問'], ['那麼', '咁'], ['那一', '嗰一'], ['他面前', '佢面前'], ['他的', '佢嘅'],
+  ['他叫', '佢叫'], ['他都', '佢都'], ['儲了一些', '儲咗啲'], ['儲了', '儲咗'], ['算了', '算喇'],
+  ['起來', '起嚟'], ['很久', '好耐'], ['新的', '新嘅'], ['事情', '嘢'], ['東西', '嘢'],
+  ['喺問問', '問問'], ['的時候', '嗰陣時'], ['時候', '嗰陣時'],
+]
+
+function normalizeSpokenCantonese(value) {
+  const normalized = spokenCantonese.reduce((text, [written, spoken]) => text.replaceAll(written, spoken), value)
+  return normalized
+    .replace(/Leon[，,\s]*終於盼到(?:今日|今天)(?:了|咗)?/u, 'Leon 終於等到今日喇')
+    .replace(/可能我唔問咁多(?:了|咗)?/u, '可能我唔問咁多喇')
+    .replace(/因為我哋今日有跪客/u, '因為我哋今日有貴客')
+    .replace(/了(?=[\s，。！？、]|$)/gu, '咗')
+}
 
 const materials = [
   { directory: '2016-line-entertainment-interview', segmentIdStart: 9001 },
   { directory: '2017-viutv-interviu', segmentIdStart: 12001 },
   { directory: '2016-crhk-903-short-interview', segmentIdStart: 15001 },
   { directory: '2016-crhk-903-full-interview', segmentIdStart: 18001 },
-  { directory: '1993-radio-interview', segmentIdStart: 21001 },
 ]
 
 function formatVttTime(milliseconds) {
@@ -48,7 +98,7 @@ function cleanText(value) {
     .replace(/\b(?:Lion|Eon|Diamn)\b/gi, 'Leon')
     .replace(/(?:黎[鳴鸣鶏鸡雅鸥])+|麗明|來明/g, '黎明')
     .replace(/字幕志愿者/gu, '字幕志願者')
-  return transcriptCorrections.get(normalized) ?? normalized
+  return normalizeSpokenCantonese(transcriptCorrections.get(normalized) ?? normalized)
 }
 
 function cleanSegments(rawSegments, durationSeconds, firstId) {
@@ -127,7 +177,7 @@ for (const material of materials) {
     `- 講者：${source.speaker}`,
     `- 語言：香港粵語（繁體中文）`,
     `- 來源：${source.source.url}`,
-    `- 說明：由本地語音模型生成時間軸，並進行重複句與異常片段清理。`,
+    `- 說明：由本地語音模型逐句轉寫，並進行香港粵語詞彙規範、重複句與異常片段清理。`,
     '',
     ...segments.map((segment) => `[${formatTranscriptTime(segment.start * 1_000)}] ${segment.text}`),
     '',
@@ -148,7 +198,7 @@ for (const material of materials) {
       kind: 'machine-transcript',
       model: 'whisper.cpp large-v3-turbo-q5_0',
       segmentCount: segments.length,
-      qualityControl: 'Context isolation, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions.',
+      qualityControl: 'Context isolation, spoken Cantonese lexical normalization, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions.',
     },
     captions: {
       file: 'captions-yue-Hant.vtt',

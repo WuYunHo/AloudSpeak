@@ -9,7 +9,6 @@ const materials = [
   { directory: '2017-viutv-interviu', firstId: 12001 },
   { directory: '2016-crhk-903-short-interview', firstId: 15001 },
   { directory: '2016-crhk-903-full-interview', firstId: 18001 },
-  { directory: '1993-radio-interview', firstId: 21001 },
 ]
 
 function assert(condition, message) {
@@ -79,6 +78,7 @@ for (const material of materials) {
     assert(!segment.text.includes('\uFFFD'), `${label}: replacement character found`)
     assert(!/(.)\1{7}/u.test(segment.text), `${label}: repeated-character garbage found`)
     assert(!/\bJoyne\b|字幕志願者|字幕製作/iu.test(segment.text), `${label}: known hallucination found`)
+    assert(!/下班|落班|上班|我們|你們|他們|這個|這些|那個|那些|沒有|不是|為什麼|為甚麼|甚麼|什麼|現在|今天|明天|剛才|一起|聊天|吃飯|回家/u.test(segment.text), `${label}: written-Mandarin wording remains in Cantonese transcript`)
     frequencies.set(segment.text, (frequencies.get(segment.text) || 0) + 1)
   })
 
@@ -87,4 +87,4 @@ for (const material of materials) {
   console.log(`${label}: ${lesson.segments.length} segments, ${audioDuration.toFixed(2)} seconds`)
 }
 
-console.log('All 5 Leon Lai Cantonese materials verified.')
+console.log('All 4 Leon Lai Cantonese materials verified.')

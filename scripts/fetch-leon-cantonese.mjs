@@ -35,13 +35,6 @@ const materials = [
     title: '黎明《口水多過浪花》完整訪問',
     date: '2016-03-02',
   },
-  {
-    bvid: 'BV1cS4y1S7AS',
-    cid: 556965250,
-    directory: '1993-radio-interview',
-    title: '黎明 1993《海角天涯》電台訪問',
-    date: '1993-06-04',
-  },
 ]
 
 async function exists(path) {

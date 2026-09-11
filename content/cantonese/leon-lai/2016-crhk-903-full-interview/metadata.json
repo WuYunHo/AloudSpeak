@@ -13,14 +13,14 @@
     "sourcePublisher": "Bilibili",
     "kind": "machine-transcript",
     "model": "whisper.cpp large-v3-turbo-q5_0",
-    "segmentCount": 573,
-    "qualityControl": "Context isolation, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions."
+    "segmentCount": 572,
+    "qualityControl": "Context isolation, spoken Cantonese lexical normalization, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions."
   },
   "captions": {
     "file": "captions-yue-Hant.vtt",
     "sourceUrl": "https://www.bilibili.com/video/BV1Hi4y1C7C8/",
     "sourceVideoUrl": "https://www.bilibili.com/video/BV1Hi4y1C7C8/",
-    "segmentCount": 573
+    "segmentCount": 572
   },
   "audio": {
     "file": "audio.mp3",
