@@ -16,6 +16,12 @@
     "segmentCount": 133,
     "qualityControl": "Context isolation, spoken Cantonese lexical normalization, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions."
   },
+  "translation": {
+    "file": "translations-zh-CN.json",
+    "locale": "zh-CN",
+    "kind": "machine-translation",
+    "segmentCount": 133
+  },
   "captions": {
     "file": "captions-yue-Hant.vtt",
     "sourceUrl": "https://www.bilibili.com/video/BV11T4y1A7Su/",

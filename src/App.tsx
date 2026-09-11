@@ -389,7 +389,7 @@ function App() {
               <i />
             </div>
             <div className="album-meta">
-              <div className="meta-tags"><span>{collection.shortTitle}</span><span>{lesson.language === 'yue-Hant-HK' ? '粤语原声' : '中英双语'}</span><span>{lesson.language === 'yue-Hant-HK' ? '粤语逐字稿' : lesson.level}</span><span>{lesson.year}</span></div>
+              <div className="meta-tags"><span>{collection.shortTitle}</span><span>{lesson.language === 'yue-Hant-HK' ? '中粤双语' : '中英双语'}</span><span>{lesson.language === 'yue-Hant-HK' ? '粤语逐字稿' : lesson.level}</span><span>{lesson.year}</span></div>
               <h1>{lesson.title}</h1>
               <p>{lesson.speaker}</p>
               <div className="album-facts"><span><Clock3 size={15} />{lesson.minutes} 分钟</span><span><ListMusic size={15} />{lesson.segments.length} 句</span></div>

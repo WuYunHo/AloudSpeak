@@ -2,6 +2,7 @@ import { copyFile, mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 import * as OpenCC from 'opencc-js'
 
 const toHongKongTraditional = OpenCC.Converter({ from: 'cn', to: 'hk' })
+const toSimplifiedChinese = OpenCC.Converter({ from: 'hk', to: 'cn' })
 
 const transcriptCorrections = new Map([
   ['其實我一時而落這麼久', '其實我主持咗咁耐嘅《一綫娛樂》'],
@@ -64,6 +65,28 @@ function normalizeSpokenCantonese(value) {
     .replace(/可能我唔問咁多(?:了|咗)?/u, '可能我唔問咁多喇')
     .replace(/因為我哋今日有跪客/u, '因為我哋今日有貴客')
     .replace(/了(?=[\s，。！？、]|$)/gu, '咗')
+}
+
+const cantoneseToMandarin = [
+  ['有時我會傾偈嘅對住偶像', '有时我会对着偶像聊天'], ['傾偈嘅對住', '对着聊天'], ['就係', '就是'], ['呢一日', '这一天'],
+  ['畀我等到', '让我等到'], ['更輕', '更轻松'], ['細量', '商量'],
+  ['我哋', '我们'], ['你哋', '你们'], ['佢哋', '他们'], ['佢', '他'], ['呢個', '这个'], ['呢啲', '这些'],
+  ['呢度', '这里'], ['嗰個', '那个'], ['嗰啲', '那些'], ['嗰度', '那里'], ['邊度', '哪里'], ['點解', '为什么'],
+  ['乜嘢', '什么'], ['而家', '现在'], ['今日', '今天'], ['聽日', '明天'], ['頭先', '刚才'], ['一齊', '一起'],
+  ['放工', '下班'], ['返工', '上班'], ['返屋企', '回家'], ['冇', '没有'], ['唔係', '不是'], ['真係', '真的'],
+  ['好多', '很多'], ['鍾意', '喜欢'], ['傾偈', '聊天'], ['食飯', '吃饭'], ['見到', '看见'], ['聽到', '听到'],
+  ['講嘢', '说话'], ['畀', '给'], ['一陣', '一会儿'], ['對住', '对着'], ['唔緊要', '不要紧'], ['咁耐', '这么久'],
+  ['咁好', '这么好'], ['咁多', '这么多'], ['咁樣', '这样'], ['咁', '这么'], ['唔同', '不同'], ['有啲', '有些'],
+  ['日日', '每天'], ['睇', '看'], ['講', '说'], ['係咪', '对吗'], ['係我', '是我'], ['係你', '是你'], ['係佢', '是他'],
+  ['係一個', '是一个'], ['係好', '是好'], ['唔會', '不会'], ['唔能夠', '不能'],
+  ['唔好', '不要'], ['唔想', '不想'], ['唔使', '不需要'], ['唔明', '不明白'], ['唔知', '不知道'], ['唔問', '不问'],
+  ['嘅', '的'], ['喇', '了'], ['咗', '了'], ['嚟喇', '来了'], ['嚟', '来'], ['喺', '在'], ['抱住', '抱着'],
+  ['嚟講', '来说'], ['嗰陣時', '那时候'], ['嗰一', '那一'], ['今次', '这次'], ['啲', '些'], ['嘢', '东西'], ['細路', '孩子'],
+]
+
+function translateToMandarin(value) {
+  const converted = cantoneseToMandarin.reduce((text, [spoken, mandarin]) => text.replaceAll(spoken, mandarin), value)
+  return toSimplifiedChinese(converted).replace(/(^|[，。！？、\s])係(?=$|[，。！？、\s])/gu, '$1是').trim()
 }
 
 const materials = [
@@ -129,7 +152,7 @@ function cleanSegments(rawSegments, durationSeconds, firstId) {
     start: Number((segment.startMs / 1_000).toFixed(3)),
     end: Number((segment.endMs / 1_000).toFixed(3)),
     text: segment.text,
-    translation: '',
+    translation: translateToMandarin(segment.text),
   }))
 }
 
@@ -177,7 +200,7 @@ for (const material of materials) {
     `- 講者：${source.speaker}`,
     `- 語言：香港粵語（繁體中文）`,
     `- 來源：${source.source.url}`,
-    `- 說明：由本地語音模型逐句轉寫，並進行香港粵語詞彙規範、重複句與異常片段清理。`,
+    `- 說明：由本地語音模型逐句轉寫，並進行香港粵語詞彙規範、中文翻譯、重複句與異常片段清理。`,
     '',
     ...segments.map((segment) => `[${formatTranscriptTime(segment.start * 1_000)}] ${segment.text}`),
     '',
@@ -200,6 +223,12 @@ for (const material of materials) {
       segmentCount: segments.length,
       qualityControl: 'Context isolation, spoken Cantonese lexical normalization, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions.',
     },
+    translation: {
+      file: 'translations-zh-CN.json',
+      locale: 'zh-CN',
+      kind: 'machine-translation',
+      segmentCount: segments.length,
+    },
     captions: {
       file: 'captions-yue-Hant.vtt',
       sourceUrl: source.source.url,
@@ -219,7 +248,7 @@ for (const material of materials) {
     writeFile(new URL('lesson.json', root), `${JSON.stringify(lesson, null, 2)}\n`, 'utf8'),
     writeFile(new URL('captions-yue-Hant.vtt', root), captions, 'utf8'),
     writeFile(new URL('transcript-yue-Hant.md', root), transcript, 'utf8'),
-    writeFile(new URL('translations-zh-CN.json', root), `${JSON.stringify({ locale: 'zh-CN', kind: 'none', translations: {} }, null, 2)}\n`, 'utf8'),
+    writeFile(new URL('translations-zh-CN.json', root), `${JSON.stringify({ locale: 'zh-CN', kind: 'machine-translation', translations: Object.fromEntries(segments.map((segment) => [String(segment.id), segment.translation])) }, null, 2)}\n`, 'utf8'),
     writeFile(new URL('metadata.json', root), `${JSON.stringify(metadata, null, 2)}\n`, 'utf8'),
   ])
   console.log(`${source.title}: ${segments.length} segments`)

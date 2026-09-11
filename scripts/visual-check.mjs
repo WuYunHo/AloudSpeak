@@ -66,7 +66,7 @@ async function checkViewport(name, viewport) {
     await page.getByRole('heading', { name: "There's more to life than being happy", level: 1 }).waitFor()
     await page.locator('.playlist-collection').nth(2).locator('.playlist-item').first().click()
     await page.getByRole('heading', { name: '黎明《一綫娛樂》專訪', level: 1 }).waitFor()
-    await page.locator('.meta-tags').getByText('粤语原声').waitFor()
+    await page.locator('.meta-tags').getByText('中粤双语').waitFor()
     await page.locator('.lyric-line').first().getByText(/我主持咗咁耐嘅/).waitFor()
     await page.screenshot({ path: `${outputDir}/desktop-leon.png` })
     await page.locator('.playlist-item').first().click()
@@ -81,6 +81,7 @@ async function checkViewport(name, viewport) {
     await page.getByLabel('选择演讲素材').selectOption('leon-lai-2017-viutv-interviu')
     await page.getByRole('heading', { name: '黎明 ViuTV《Interviu》專訪', level: 1 }).waitFor()
     await page.locator('.meta-tags').getByText('粤语逐字稿').waitFor()
+    await page.locator('.lyric-line').first().locator('em').getByText(/知不知道为什么/).waitFor()
     await page.screenshot({ path: `${outputDir}/mobile-leon.png` })
     await page.getByLabel('选择演讲素材').selectOption('donald-trump-2017-inaugural-address')
   }
