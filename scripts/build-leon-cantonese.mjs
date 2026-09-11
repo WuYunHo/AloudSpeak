@@ -221,7 +221,7 @@ for (const material of materials) {
       kind: 'machine-transcript',
       model: 'whisper.cpp large-v3-turbo-q5_0',
       segmentCount: segments.length,
-      qualityControl: 'Context isolation, spoken Cantonese lexical normalization, duplicate removal, invalid-duration filtering, and sampled checks against burned-in captions.',
+      qualityControl: 'Context isolation, spoken Cantonese lexical normalization, duplicate removal, invalid-duration filtering, and sampled checks against available source captions.',
     },
     translation: {
       file: 'translations-zh-CN.json',
