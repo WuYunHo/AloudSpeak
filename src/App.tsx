@@ -3,8 +3,6 @@ import type { CSSProperties } from 'react'
 import {
   AudioLines,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
   Clock3,
   ExternalLink,
   Headphones,
@@ -209,7 +207,6 @@ function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const lyricsViewportRef = useRef<HTMLDivElement | null>(null)
   const lyricLineRefs = useRef<(HTMLButtonElement | null)[]>([])
-  const playlistViewportRef = useRef<HTMLDivElement | null>(null)
   const lesson = lessons[lessonIndex]
   const collection = collections.find((item) => item.lessons.some(({ id }) => id === lesson.id)) ?? collections[0]
   const isLiked = Boolean(likedLessons[lesson.id])
@@ -331,17 +328,14 @@ function App() {
     setExpandedCollections((value) => ({ ...value, [collectionId]: !value[collectionId] }))
   }
 
-  const slideCollections = (direction: number) => {
-    playlistViewportRef.current?.scrollBy({ left: direction * playlistViewportRef.current.clientWidth, behavior: 'smooth' })
-  }
 
   return (
     <div className="player-shell">
       <aside className="sidebar">
         <div className="brand"><span className="brand-mark"><AudioLines size={19} /></span><span>ECHO</span></div>
         <div className="side-nav"><div className="active"><Headphones size={19} /><span>正在播放</span></div></div>
-        <div className="playlist-heading"><span>演讲合集</span><div className="playlist-count"><small>{collections.length}</small><button type="button" onClick={() => slideCollections(-1)} aria-label="上一个合集" title="上一个合集"><ChevronLeft size={13} /></button><button type="button" onClick={() => slideCollections(1)} aria-label="下一个合集" title="下一个合集"><ChevronRight size={13} /></button></div></div>
-        <div className="playlist" ref={playlistViewportRef} tabIndex={0} aria-label="可滑动的演讲合集列表">
+        <div className="playlist-heading"><span>演讲合集</span><small>{collections.length}</small></div>
+        <div className="playlist" aria-label="可上下滑动的演讲合集列表">
           {collections.map((itemCollection) => (
             <section className="playlist-collection" key={itemCollection.id} aria-label={itemCollection.title}>
               <button

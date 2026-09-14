@@ -31,6 +31,8 @@ async function checkViewport(name, viewport) {
   if (layout.horizontalOverflow) errors.push(`${name}: horizontal overflow detected`)
   if (layout.playerOverlapsStage) errors.push(`${name}: player overlaps the listening stage`)
   if (!layout.lyricsScrollable) errors.push(`${name}: lyrics viewport is not scrollable`)
+  const playlistScrollable = await page.locator('.playlist').evaluate((node) => node.scrollHeight > node.clientHeight)
+  if (name === 'desktop' && !playlistScrollable) errors.push('desktop: collection playlist is not vertically scrollable')
 
   const collectionCount = name === 'desktop'
     ? await page.locator('.playlist-collection').count()
