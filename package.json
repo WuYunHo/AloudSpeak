@@ -12,6 +12,7 @@
     "fetch:trump:addresses": "node scripts/fetch-trump-addresses.mjs",
     "fetch:ted:bilibili": "node scripts/fetch-ted-bilibili.mjs",
     "fetch:leon:cantonese": "node scripts/fetch-leon-cantonese.mjs",
+    "fetch:tvb:audio": "node scripts/fetch-tvb-audio.mjs",
     "build:leon:cantonese": "node scripts/build-leon-cantonese.mjs",
     "verify:trump:inaugural": "node scripts/verify-trump-inaugural.mjs",
     "verify:trump:materials": "node scripts/verify-trump-materials.mjs",

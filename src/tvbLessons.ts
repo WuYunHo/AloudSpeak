@@ -38,7 +38,7 @@ export const tvbLessons: TvbLesson[] = Object.entries(sources).flatMap(([program
   sourceKind: 'official-video',
   language: 'yue-Hant-HK',
   coverUrl: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-  audioUrl: '',
+  audioUrl: `/tvb/audio/${videoId}.mp3`,
   audioSourceUrl: `https://www.youtube.com/watch?v=${videoId}`,
   captionSourceUrl: `https://www.youtube.com/watch?v=${videoId}`,
   durationSeconds: 0,
