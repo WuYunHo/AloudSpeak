@@ -70,6 +70,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .breadcrumb strong { overflow: hidden; color: #3a3f3b; text-overflow: ellipsis; white-space: nowrap; }
 .source-button { height: 36px; padding: 0 12px; display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 6px; color: #4f5751; background: #fff; font-size: 11px; font-weight: 750; text-decoration: none; white-space: nowrap; }
 .source-button:hover { border-color: #c1c7c1; background: #f5f6f3; }
+.video-top-button { width: 36px; height: 36px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 6px; color: var(--red-dark); background: #fff; cursor: pointer; }
+.video-top-button:hover { border-color: #e2b3ae; color: var(--red); background: #fff7f6; }
 .mobile-track { display: none; }
 .mobile-lesson-select { min-width: 0; width: 100%; border: 0; color: var(--ink); background: transparent; font-size: 10px; font-weight: 750; }
 
@@ -92,6 +94,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 .album-facts span { display: flex; align-items: center; gap: 6px; font-size: 10px; }
 .source-links { margin-top: 15px; display: flex; justify-content: center; gap: 13px; }
 .source-links a { display: inline-flex; align-items: center; gap: 4px; color: #647069; font-size: 9px; text-underline-offset: 3px; }
+.video-button { display: inline-flex; align-items: center; gap: 5px; padding: 0; border: 0; color: var(--red-dark); background: transparent; font-size: 9px; cursor: pointer; }
+.video-button:hover { color: var(--red); text-decoration: underline; text-underline-offset: 3px; }
 
 .lyrics-pane { position: relative; min-width: 0; min-height: 0; padding: 31px 54px 0; display: grid; grid-template-rows: auto minmax(0, 1fr); overflow: hidden; background: #fff; }
 .lyrics-heading { z-index: 2; padding-bottom: 15px; display: flex; align-items: end; justify-content: space-between; border-bottom: 1px solid #eceeeb; }
@@ -146,6 +150,15 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
 .volume-control { display: flex; align-items: center; justify-content: flex-end; gap: 6px; }
 .volume-control button { width: 32px; height: 32px; }
 .volume-control input { width: min(110px, 9vw); }
+.transport-buttons .main-play:disabled { opacity: .35; cursor: not-allowed; }
+.video-modal { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 28px; background: rgba(17, 23, 19, .76); }
+.video-modal-content { width: min(900px, 100%); overflow: hidden; border-radius: 8px; background: #151916; box-shadow: 0 24px 70px rgba(0, 0, 0, .3); }
+.video-modal-heading { height: 48px; padding: 0 14px 0 18px; display: flex; align-items: center; justify-content: space-between; color: #f4f7f4; font-size: 13px; }
+.video-modal-heading strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.video-modal-heading button { width: 32px; height: 32px; display: grid; place-items: center; border: 0; border-radius: 5px; color: #c2cbc3; background: transparent; cursor: pointer; }
+.video-modal-heading button:hover { color: #fff; background: #2b332d; }
+.video-frame { position: relative; aspect-ratio: 16 / 9; background: #000; }
+.video-frame iframe { width: 100%; height: 100%; display: block; border: 0; }
 
 @media (max-width: 1030px) {
   .player-shell { grid-template-columns: 78px minmax(0, 1fr); }
@@ -184,6 +197,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
   .mobile-track img { width: 34px; height: 34px; border-radius: 4px; object-fit: cover; }
   .mobile-lesson-select { flex: 1; height: 34px; padding: 0 22px 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .source-button { height: 32px; padding-inline: 10px; font-size: 10px; }
+  .video-top-button { width: 32px; height: 32px; }
   .listening-stage { min-height: 0; display: grid; grid-template-columns: 1fr; grid-template-rows: 148px minmax(0, 1fr); }
   .album-pane { min-height: 0; padding: 17px 20px; flex-direction: row; justify-content: flex-start; gap: 18px; border-right: 0; border-bottom: 1px solid var(--line); }
   .vinyl { width: 108px; border-width: 5px; box-shadow: 0 9px 19px rgba(24,30,26,.16), inset 0 0 0 5px #262b28; }
@@ -221,6 +235,7 @@ input[type="range"]::-moz-range-thumb { width: 9px; height: 9px; border: 2px sol
 
 @media (max-width: 410px) {
   .source-button { width: 34px; padding: 0; justify-content: center; font-size: 0; }
+  .video-top-button { width: 34px; height: 34px; }
   .listening-stage { grid-template-rows: 132px minmax(0, 1fr); }
   .album-pane { padding: 13px 17px; gap: 14px; }
   .vinyl { width: 94px; }

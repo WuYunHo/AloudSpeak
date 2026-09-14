@@ -15,7 +15,10 @@ import {
   SkipForward,
   Volume2,
   VolumeX,
+  Video,
+  X,
 } from 'lucide-react'
+import { tvbLessons } from './tvbLessons'
 import trumpAudioUrl from '../content/donald-trump/2017-inaugural-address/audio.mp3?url'
 import trumpLessonData from '../content/donald-trump/2017-inaugural-address/lesson.json'
 import trumpMetadata from '../content/donald-trump/2017-inaugural-address/metadata.json'
@@ -95,6 +98,7 @@ type Lesson = {
   language: string
   coverUrl: string
   audioUrl: string
+  videoUrl?: string
   audioSourceUrl: string
   captionSourceUrl: string
   durationSeconds: number
@@ -153,10 +157,13 @@ const leonLessons: Lesson[] = [
   createLesson(crhkFullLessonData, crhkFullMetadata, crhkFullTranslations, crhkFullAudioUrl, crhkFullCoverUrl),
 ]
 
+const tvbProgramLessons: Lesson[] = tvbLessons
+
 const collections: LessonCollection[] = [
   { id: 'donald-trump', title: '特朗普演讲', shortTitle: '特朗普', lessons: trumpLessons },
   { id: 'ted-talks', title: 'TED 演讲', shortTitle: 'TED', lessons: tedLessons },
   { id: 'leon-lai-cantonese', title: '黎明粤语访谈', shortTitle: '黎明', lessons: leonLessons },
+  { id: 'tvb-cantonese', title: 'TVB 粤语节目', shortTitle: 'TVB', lessons: tvbProgramLessons },
 ]
 
 const lessons = collections.flatMap((collection) => collection.lessons)
@@ -196,12 +203,14 @@ function App() {
   const [isMuted, setIsMuted] = useState(false)
   const [likedLessons, setLikedLessons] = useState<Record<string, boolean>>({})
   const [isRepeat, setIsRepeat] = useState(false)
+  const [isVideoOpen, setIsVideoOpen] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const lyricsViewportRef = useRef<HTMLDivElement | null>(null)
   const lyricLineRefs = useRef<(HTMLButtonElement | null)[]>([])
   const lesson = lessons[lessonIndex]
   const collection = collections.find((item) => item.lessons.some(({ id }) => id === lesson.id)) ?? collections[0]
   const isLiked = Boolean(likedLessons[lesson.id])
+  const hasAudio = Boolean(lesson.audioUrl)
 
   const activeIndex = useMemo(
     () => findActiveSegment(lesson.segments, currentTime),
@@ -209,6 +218,15 @@ function App() {
   )
 
   useEffect(() => {
+    if (!lesson.audioUrl) {
+      audioRef.current = null
+      setIsPlaying(false)
+      setCurrentTime(0)
+      setDuration(0)
+      lyricLineRefs.current = []
+      lyricsViewportRef.current?.scrollTo({ top: 0 })
+      return
+    }
     const audio = new Audio(lesson.audioUrl)
     audio.preload = 'metadata'
     audio.playbackRate = speed
@@ -263,7 +281,7 @@ function App() {
 
   const play = async () => {
     const audio = audioRef.current
-    if (!audio) return
+    if (!audio || !hasAudio) return
     try {
       await audio.play()
       setIsPlaying(true)
@@ -274,7 +292,7 @@ function App() {
 
   const togglePlayback = () => {
     const audio = audioRef.current
-    if (!audio) return
+    if (!audio || !hasAudio) return
     if (isPlaying) {
       audio.pause()
       setIsPlaying(false)
@@ -285,7 +303,7 @@ function App() {
 
   const seek = (time: number, autoplay = false) => {
     const audio = audioRef.current
-    if (!audio) return
+    if (!audio || !hasAudio) return
     audio.currentTime = Math.max(0, Math.min(time, duration || lesson.durationSeconds))
     setCurrentTime(audio.currentTime)
     if (autoplay) void play()
@@ -378,6 +396,7 @@ function App() {
             </select>
           </div>
           <div className="breadcrumb"><span>素材库</span><i>/</i><span>{collection.title}</span><i>/</i><strong>{lesson.title}</strong></div>
+          {lesson.videoUrl && <button type="button" className="video-top-button" onClick={() => setIsVideoOpen(true)} aria-label="观看视频" title="观看视频"><Video size={16} /></button>}
           <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'caption-transcript' || lesson.sourceKind === 'machine-transcript' ? '字幕稿' : '官方稿'}</a>
         </header>
 
@@ -396,6 +415,7 @@ function App() {
               <div className="source-links">
                 <a href={lesson.audioSourceUrl} target="_blank" rel="noreferrer">原声音频 <ExternalLink size={13} /></a>
                 <a href={lesson.captionSourceUrl} target="_blank" rel="noreferrer">字幕来源 <ExternalLink size={13} /></a>
+                {lesson.videoUrl && <button type="button" className="video-button" onClick={() => setIsVideoOpen(true)}><Video size={14} />观看视频</button>}
               </div>
             </div>
           </section>
@@ -433,7 +453,7 @@ function App() {
             <div className="transport-buttons">
               <button className={isRepeat ? 'enabled' : ''} onClick={() => setIsRepeat((value) => !value)} title="循环播放"><Repeat2 size={17} /></button>
               <button onClick={() => seekSegment(activeIndex - 1)} title="上一句"><SkipBack size={20} fill="currentColor" /></button>
-              <button className="main-play" onClick={togglePlayback} aria-label={isPlaying ? '暂停' : '播放'}>{isPlaying ? <Pause size={21} fill="currentColor" /> : <Play size={21} fill="currentColor" />}</button>
+              <button className="main-play" onClick={togglePlayback} aria-label={isPlaying ? '暂停' : '播放'} disabled={!hasAudio}>{isPlaying ? <Pause size={21} fill="currentColor" /> : <Play size={21} fill="currentColor" />}</button>
               <button onClick={() => seekSegment(activeIndex + 1)} title="下一句"><SkipForward size={20} fill="currentColor" /></button>
               <button className="speed-control" onClick={cycleSpeed} title="播放速度">{speed}x</button>
             </div>
@@ -448,6 +468,14 @@ function App() {
             <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(event) => setVolume(Number(event.target.value))} aria-label="音量" />
           </div>
         </footer>
+        {isVideoOpen && lesson.videoUrl && (
+          <div className="video-modal" role="dialog" aria-modal="true" aria-label="观看视频" onClick={() => setIsVideoOpen(false)}>
+            <div className="video-modal-content" onClick={(event) => event.stopPropagation()}>
+              <div className="video-modal-heading"><strong>{lesson.title}</strong><button type="button" onClick={() => setIsVideoOpen(false)} aria-label="关闭视频"><X size={18} /></button></div>
+              <div className="video-frame"><iframe src={lesson.videoUrl} title={lesson.title} allow="autoplay; encrypted-media; picture-in-picture" allowFullScreen /></div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   )

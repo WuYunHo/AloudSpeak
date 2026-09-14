@@ -35,7 +35,7 @@ async function checkViewport(name, viewport) {
   const collectionCount = name === 'desktop'
     ? await page.locator('.playlist-collection').count()
     : await page.locator('.mobile-lesson-select optgroup').count()
-  if (collectionCount !== 3) errors.push(`${name}: expected three lesson collections, found ${collectionCount}`)
+  if (collectionCount !== 4) errors.push(`${name}: expected four lesson collections, found ${collectionCount}`)
 
   const leonLessonCount = name === 'desktop'
     ? await page.locator('.playlist-collection').nth(2).locator('.playlist-item').count()
@@ -69,6 +69,14 @@ async function checkViewport(name, viewport) {
     await page.locator('.meta-tags').getByText('中粤双语').waitFor()
     await page.locator('.lyric-line').first().getByText(/我主持咗咁耐嘅/).waitFor()
     await page.screenshot({ path: `${outputDir}/desktop-leon.png` })
+    await page.locator('.playlist-item').first().click()
+    await page.getByRole('heading', { name: 'The Inaugural Address', level: 1 }).waitFor()
+    await page.locator('.playlist-collection').nth(3).locator('.playlist-item').first().click()
+    await page.getByRole('heading', { name: /流行都市/ }).waitFor()
+    await page.locator('.video-button').click()
+    await page.locator('.video-modal').waitFor()
+    await page.locator('.video-modal-heading button').click()
+    if (await page.locator('.video-modal').count()) errors.push('desktop: video modal did not close')
     await page.locator('.playlist-item').first().click()
     await page.getByRole('heading', { name: 'The Inaugural Address', level: 1 }).waitFor()
   } else {

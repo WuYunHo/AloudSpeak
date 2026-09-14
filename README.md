@@ -92,3 +92,5 @@ npm run verify:ted:materials
 npm run build:leon:cantonese
 npm run verify:leon:cantonese
 ```
+
+TVB 粤语节目素材目前以独立的 `TVB 粤语节目` 合集提供，共 5 个节目、每个节目 5 条视频片段。片段保留官方 YouTube 来源和封面，点击播放器顶部的视频按钮即可在弹层中观看；TVB/YouTube 视频继续由原平台提供，不把临时签名流地址打包进仓库。
