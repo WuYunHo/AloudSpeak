@@ -1,3 +1,5 @@
+import { tvbCaptions } from './tvbCaptions'
+
 export type TvbLesson = {
   id: string
   title: string
@@ -43,11 +45,11 @@ export const tvbLessons: TvbLesson[] = Object.entries(sources).flatMap(([program
   captionSourceUrl: `https://www.youtube.com/watch?v=${videoId}`,
   durationSeconds: 0,
   videoUrl: `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`,
-  segments: [{
+  segments: tvbCaptions[videoId]?.length ? [...tvbCaptions[videoId]] : [{
     id: 1,
     start: 0,
-    end: 0,
-    text: '點擊觀看原聲視頻片段',
-    translation: '点击观看原声视频片段',
+    end: 1,
+    text: '此片段暫未提供字幕',
+    translation: '此片段暂未提供字幕',
   }],
 })))
