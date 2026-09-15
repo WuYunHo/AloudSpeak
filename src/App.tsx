@@ -1,16 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { CSSProperties } from 'react'
+import type { CSSProperties, PointerEvent as ReactPointerEvent } from 'react'
 import {
   AudioLines,
+  Captions,
   ChevronDown,
   Clock3,
   ExternalLink,
   Headphones,
   Heart,
   ListMusic,
+  Grip,
   Pause,
   Play,
   Repeat2,
+  RotateCcw,
+  Settings2,
   SkipBack,
   SkipForward,
   Volume2,
@@ -112,6 +116,12 @@ type LessonCollection = {
   lessons: Lesson[]
 }
 
+type DesktopLyricsOptions = {
+  fontSize: number
+  opacity: number
+  showTranslation: boolean
+}
+
 function createLesson(
   lessonData: Omit<Lesson, 'year' | 'sourceKind' | 'language' | 'coverUrl' | 'audioUrl' | 'audioSourceUrl' | 'captionSourceUrl' | 'durationSeconds' | 'segments'> & { segments: Segment[] },
   metadata: { date: string; language?: string; durationSeconds: number; transcript: { kind: string }; audio: { sourceUrl: string }; captions: { sourceVideoUrl: string } },
@@ -204,7 +214,30 @@ function App() {
   const [likedLessons, setLikedLessons] = useState<Record<string, boolean>>({})
   const [isRepeat, setIsRepeat] = useState(false)
   const [isVideoOpen, setIsVideoOpen] = useState(false)
+  const [isDesktopLyricsOpen, setIsDesktopLyricsOpen] = useState(false)
+  const [isDesktopLyricsSettingsOpen, setIsDesktopLyricsSettingsOpen] = useState(false)
+  const [desktopLyricsPosition, setDesktopLyricsPosition] = useState(() => {
+    if (typeof window === 'undefined') return { left: 320, top: 72 }
+    try {
+      const stored = window.localStorage.getItem('echo-desktop-lyrics-position')
+      if (stored) return JSON.parse(stored) as { left: number; top: number }
+    } catch {
+      // Use the centered default when storage is unavailable.
+    }
+    return { left: Math.max(12, Math.round(window.innerWidth / 2 - 320)), top: Math.max(58, window.innerHeight - 190) }
+  })
+  const [desktopLyricsOptions, setDesktopLyricsOptions] = useState<DesktopLyricsOptions>(() => {
+    if (typeof window === 'undefined') return { fontSize: 25, opacity: 0.94, showTranslation: true }
+    try {
+      const stored = window.localStorage.getItem('echo-desktop-lyrics-options')
+      return stored ? { fontSize: 25, opacity: 0.94, showTranslation: true, ...JSON.parse(stored) } : { fontSize: 25, opacity: 0.94, showTranslation: true }
+    } catch {
+      return { fontSize: 25, opacity: 0.94, showTranslation: true }
+    }
+  })
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const desktopLyricsRef = useRef<HTMLDivElement | null>(null)
+  const desktopLyricsDragRef = useRef<{ offsetX: number; offsetY: number } | null>(null)
   const lyricsViewportRef = useRef<HTMLDivElement | null>(null)
   const lyricLineRefs = useRef<(HTMLButtonElement | null)[]>([])
   const lesson = lessons[lessonIndex]
@@ -216,6 +249,12 @@ function App() {
     () => findActiveSegment(lesson.segments, currentTime),
     [currentTime, lesson.segments],
   )
+
+  const desktopLyricsLines = useMemo(() => ({
+    previous: lesson.segments[activeIndex - 1],
+    current: lesson.segments[activeIndex],
+    next: lesson.segments[activeIndex + 1],
+  }), [activeIndex, lesson.segments])
 
   useEffect(() => {
     if (!lesson.audioUrl) {
@@ -272,6 +311,56 @@ function App() {
   }, [isRepeat])
 
   useEffect(() => {
+    try {
+      window.localStorage.setItem('echo-desktop-lyrics-options', JSON.stringify(desktopLyricsOptions))
+    } catch {
+      // Ignore storage restrictions in private browsing contexts.
+    }
+  }, [desktopLyricsOptions])
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('echo-desktop-lyrics-position', JSON.stringify(desktopLyricsPosition))
+    } catch {
+      // Ignore storage restrictions in private browsing contexts.
+    }
+  }, [desktopLyricsPosition])
+
+  useEffect(() => {
+    const move = (event: PointerEvent) => {
+      const drag = desktopLyricsDragRef.current
+      const panel = desktopLyricsRef.current
+      if (!drag || !panel) return
+      const rect = panel.getBoundingClientRect()
+      const left = Math.max(8, Math.min(window.innerWidth - rect.width - 8, event.clientX - drag.offsetX))
+      const top = Math.max(8, Math.min(window.innerHeight - rect.height - 8, event.clientY - drag.offsetY))
+      setDesktopLyricsPosition({ left, top })
+    }
+    const stop = () => { desktopLyricsDragRef.current = null }
+    window.addEventListener('pointermove', move)
+    window.addEventListener('pointerup', stop)
+    return () => {
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerup', stop)
+    }
+  }, [])
+
+  useEffect(() => {
+    const keepPanelInView = () => {
+      const panel = desktopLyricsRef.current
+      if (!panel) return
+      const rect = panel.getBoundingClientRect()
+      setDesktopLyricsPosition((position) => ({
+        left: Math.max(8, Math.min(position.left, window.innerWidth - rect.width - 8)),
+        top: Math.max(8, Math.min(position.top, window.innerHeight - rect.height - 8)),
+      }))
+    }
+    window.addEventListener('resize', keepPanelInView)
+    keepPanelInView()
+    return () => window.removeEventListener('resize', keepPanelInView)
+  }, [isDesktopLyricsOpen, isDesktopLyricsSettingsOpen])
+
+  useEffect(() => {
     const viewport = lyricsViewportRef.current
     const activeLine = lyricLineRefs.current[activeIndex]
     if (!viewport || !activeLine) return
@@ -326,6 +415,22 @@ function App() {
 
   const toggleCollection = (collectionId: string) => {
     setExpandedCollections((value) => ({ ...value, [collectionId]: !value[collectionId] }))
+  }
+
+  const startDesktopLyricsDrag = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLElement).closest('button, input')) return
+    const panel = desktopLyricsRef.current
+    if (!panel) return
+    const rect = panel.getBoundingClientRect()
+    desktopLyricsDragRef.current = { offsetX: event.clientX - rect.left, offsetY: event.clientY - rect.top }
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+  }
+
+  const resetDesktopLyricsPosition = () => {
+    setDesktopLyricsPosition({
+      left: Math.max(12, Math.round(window.innerWidth / 2 - 320)),
+      top: Math.max(58, window.innerHeight - 190),
+    })
   }
 
 
@@ -397,6 +502,7 @@ function App() {
             </select>
           </div>
           <div className="breadcrumb"><span>素材库</span><i>/</i><span>{collection.title}</span><i>/</i><strong>{lesson.title}</strong></div>
+          <button type="button" className={`desktop-lyrics-toggle ${isDesktopLyricsOpen ? 'enabled' : ''}`} onClick={() => setIsDesktopLyricsOpen((value) => !value)} aria-pressed={isDesktopLyricsOpen} aria-label="桌面歌词" title="桌面歌词"><Captions size={16} /></button>
           {lesson.videoUrl && <button type="button" className="video-top-button" onClick={() => setIsVideoOpen(true)} aria-label="观看视频" title="观看视频"><Video size={16} /></button>}
           <a className="source-button" href={lesson.sourceUrl} target="_blank" rel="noreferrer"><ExternalLink size={16} />{lesson.sourceKind === 'caption-transcript' || lesson.sourceKind === 'machine-transcript' ? '字幕稿' : '官方稿'}</a>
         </header>
@@ -469,6 +575,36 @@ function App() {
             <input type="range" min="0" max="1" step="0.01" value={volume} onChange={(event) => setVolume(Number(event.target.value))} aria-label="音量" />
           </div>
         </footer>
+        {isDesktopLyricsOpen && desktopLyricsLines.current && (
+          <div
+            ref={desktopLyricsRef}
+            className="desktop-lyrics"
+            style={{ left: desktopLyricsPosition.left, top: desktopLyricsPosition.top, '--lyrics-opacity': desktopLyricsOptions.opacity } as CSSProperties}
+            role="region"
+            aria-label="桌面歌词"
+          >
+            <div className="desktop-lyrics-header" onPointerDown={startDesktopLyricsDrag}>
+              <span><Grip size={14} /><strong>桌面歌词</strong></span>
+              <div>
+                <button type="button" onClick={() => setIsDesktopLyricsSettingsOpen((value) => !value)} aria-label="歌词设置" title="歌词设置"><Settings2 size={15} /></button>
+                <button type="button" onClick={resetDesktopLyricsPosition} aria-label="重置位置" title="重置位置"><RotateCcw size={15} /></button>
+                <button type="button" onClick={() => setIsDesktopLyricsOpen(false)} aria-label="关闭桌面歌词" title="关闭桌面歌词"><X size={15} /></button>
+              </div>
+            </div>
+            {isDesktopLyricsSettingsOpen && (
+              <div className="desktop-lyrics-settings">
+                <label><span>字号</span><input type="range" min="16" max="42" value={desktopLyricsOptions.fontSize} onChange={(event) => setDesktopLyricsOptions((value) => ({ ...value, fontSize: Number(event.target.value) }))} /></label>
+                <label><span>透明度</span><input type="range" min="0.55" max="1" step="0.01" value={desktopLyricsOptions.opacity} onChange={(event) => setDesktopLyricsOptions((value) => ({ ...value, opacity: Number(event.target.value) }))} /></label>
+                <label className="desktop-lyrics-check"><input type="checkbox" checked={desktopLyricsOptions.showTranslation} onChange={(event) => setDesktopLyricsOptions((value) => ({ ...value, showTranslation: event.target.checked }))} /><span>显示翻译</span></label>
+              </div>
+            )}
+            <div className="desktop-lyrics-body" style={{ '--lyrics-size': `${desktopLyricsOptions.fontSize}px` } as CSSProperties}>
+              {desktopLyricsLines.previous && <p className="desktop-lyrics-line previous">{desktopLyricsLines.previous.text}</p>}
+              <div className="desktop-lyrics-current"><strong>{desktopLyricsLines.current.text}</strong>{desktopLyricsOptions.showTranslation && desktopLyricsLines.current.translation && <em>{desktopLyricsLines.current.translation}</em>}</div>
+              {desktopLyricsLines.next && <p className="desktop-lyrics-line next">{desktopLyricsLines.next.text}</p>}
+            </div>
+          </div>
+        )}
         {isVideoOpen && lesson.videoUrl && (
           <div className="video-modal" role="dialog" aria-modal="true" aria-label="观看视频" onClick={() => setIsVideoOpen(false)}>
             <div className="video-modal-content" onClick={(event) => event.stopPropagation()}>

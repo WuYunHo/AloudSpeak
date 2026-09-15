@@ -54,6 +54,31 @@ async function checkViewport(name, viewport) {
   await page.screenshot({ path: `${outputDir}/${name}.png` })
 
   if (name === 'desktop') {
+    await page.locator('.desktop-lyrics-toggle').click()
+    const desktopLyrics = page.locator('.desktop-lyrics')
+    await desktopLyrics.waitFor()
+    const beforeDrag = await desktopLyrics.boundingBox()
+    await desktopLyrics.locator('.desktop-lyrics-header').hover()
+    const headerBox = await desktopLyrics.locator('.desktop-lyrics-header').boundingBox()
+    if (headerBox) {
+      await page.mouse.move(headerBox.x + headerBox.width / 2, headerBox.y + headerBox.height / 2)
+      await page.mouse.down()
+      await page.mouse.move(headerBox.x + 80, headerBox.y + 36)
+      await page.mouse.up()
+    }
+    const afterDrag = await desktopLyrics.boundingBox()
+    if (!beforeDrag || !afterDrag || (beforeDrag.x === afterDrag.x && beforeDrag.y === afterDrag.y)) errors.push('desktop: desktop lyrics panel did not move')
+    await desktopLyrics.locator('.desktop-lyrics-header button').first().click()
+    await page.locator('.desktop-lyrics-settings').waitFor()
+    await page.screenshot({ path: `${outputDir}/desktop-lyrics.png` })
+    await page.locator('.desktop-lyrics-check input').uncheck()
+    if (await desktopLyrics.locator('.desktop-lyrics-current em').count()) errors.push('desktop: translation toggle did not hide translation')
+    await desktopLyrics.locator('.desktop-lyrics-check input').check()
+    await desktopLyrics.locator('.desktop-lyrics-header button').last().click()
+    if (await page.locator('.desktop-lyrics').count()) errors.push('desktop: desktop lyrics panel did not close')
+  }
+
+  if (name === 'desktop') {
     await page.getByRole('button', { name: '收起特朗普演讲合集' }).click()
     if (await page.locator('#collection-donald-trump').count()) errors.push('desktop: collapsed collection still shows lessons')
     await page.getByRole('button', { name: '展开特朗普演讲合集' }).click()
