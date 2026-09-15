@@ -238,6 +238,8 @@ function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const desktopLyricsRef = useRef<HTMLDivElement | null>(null)
   const desktopLyricsDragRef = useRef<{ offsetX: number; offsetY: number } | null>(null)
+  const desktopLyricsChannelRef = useRef<BroadcastChannel | null>(null)
+  const desktopLyricsWindowRef = useRef<Window | null>(null)
   const lyricsViewportRef = useRef<HTMLDivElement | null>(null)
   const lyricLineRefs = useRef<(HTMLButtonElement | null)[]>([])
   const lesson = lessons[lessonIndex]
@@ -361,6 +363,34 @@ function App() {
   }, [isDesktopLyricsOpen, isDesktopLyricsSettingsOpen])
 
   useEffect(() => {
+    if (typeof BroadcastChannel === 'undefined') return
+    const channel = new BroadcastChannel('echo-desktop-lyrics')
+    desktopLyricsChannelRef.current = channel
+    channel.onmessage = (event) => {
+      if (event.data?.type === 'close') desktopLyricsWindowRef.current = null
+    }
+    return () => {
+      channel.close()
+      desktopLyricsChannelRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
+    desktopLyricsChannelRef.current?.postMessage({
+      type: 'state',
+      payload: {
+        open: isDesktopLyricsOpen,
+        title: lesson.title,
+        previous: desktopLyricsLines.previous?.text || '',
+        current: desktopLyricsLines.current?.text || '',
+        translation: desktopLyricsLines.current?.translation || '',
+        next: desktopLyricsLines.next?.text || '',
+        options: desktopLyricsOptions,
+      },
+    })
+  }, [desktopLyricsLines, desktopLyricsOptions, isDesktopLyricsOpen, lesson.title])
+
+  useEffect(() => {
     const viewport = lyricsViewportRef.current
     const activeLine = lyricLineRefs.current[activeIndex]
     if (!viewport || !activeLine) return
@@ -431,6 +461,30 @@ function App() {
       left: Math.max(12, Math.round(window.innerWidth / 2 - 320)),
       top: Math.max(58, window.innerHeight - 190),
     })
+  }
+
+  const openDesktopLyricsWindow = () => {
+    const features = 'popup=yes,width=720,height=190,left=240,top=80,resizable=yes'
+    const popup = desktopLyricsWindowRef.current && !desktopLyricsWindowRef.current.closed
+      ? desktopLyricsWindowRef.current
+      : window.open('/desktop-lyrics.html', 'echo-desktop-lyrics', features)
+    if (!popup) return
+    desktopLyricsWindowRef.current = popup
+    popup.focus()
+    const sendState = () => desktopLyricsChannelRef.current?.postMessage({
+      type: 'state',
+      payload: {
+        open: true,
+        title: lesson.title,
+        previous: desktopLyricsLines.previous?.text || '',
+        current: desktopLyricsLines.current?.text || '',
+        translation: desktopLyricsLines.current?.translation || '',
+        next: desktopLyricsLines.next?.text || '',
+        options: desktopLyricsOptions,
+      },
+    })
+    window.setTimeout(sendState, 80)
+    window.setTimeout(sendState, 400)
   }
 
 
@@ -586,6 +640,7 @@ function App() {
             <div className="desktop-lyrics-header" onPointerDown={startDesktopLyricsDrag}>
               <span><Grip size={14} /><strong>桌面歌词</strong></span>
               <div>
+                <button type="button" onClick={openDesktopLyricsWindow} aria-label="弹出独立歌词窗口" title="弹出独立歌词窗口"><ExternalLink size={15} /></button>
                 <button type="button" onClick={() => setIsDesktopLyricsSettingsOpen((value) => !value)} aria-label="歌词设置" title="歌词设置"><Settings2 size={15} /></button>
                 <button type="button" onClick={resetDesktopLyricsPosition} aria-label="重置位置" title="重置位置"><RotateCcw size={15} /></button>
                 <button type="button" onClick={() => setIsDesktopLyricsOpen(false)} aria-label="关闭桌面歌词" title="关闭桌面歌词"><X size={15} /></button>

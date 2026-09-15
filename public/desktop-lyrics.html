@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ECHO Desktop Lyrics</title>
+  <style>
+    :root { font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif; color: #f4f8f4; background: #19221d; }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { background: transparent; }
+    .panel { width: 100%; height: 100%; overflow: hidden; border: 1px solid rgba(184,216,195,.45); border-radius: 8px; background: rgba(25,34,29,.95); box-shadow: 0 18px 55px rgba(12,20,15,.34); }
+    .header { height: 36px; padding: 0 9px 0 13px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,.1); color: #a8b9ac; cursor: move; user-select: none; touch-action: none; }
+    .header span, .actions { display: flex; align-items: center; gap: 7px; }
+    .header strong { font-size: 10px; font-weight: 750; letter-spacing: .4px; }
+    .actions button { width: 27px; height: 27px; display: grid; place-items: center; border: 0; border-radius: 4px; color: #a8b9ac; background: transparent; cursor: pointer; }
+    .actions button:hover { color: #fff; background: rgba(255,255,255,.1); }
+    .body { min-height: 145px; padding: 15px 30px 17px; display: grid; place-items: center; gap: 5px; text-align: center; }
+    .line { max-width: 100%; margin: 0; overflow: hidden; color: rgba(232,241,234,.52); font-size: calc(var(--size,25px) * .55); line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+    .line.next { color: rgba(232,241,234,.64); }
+    .current { max-width: 100%; display: grid; gap: 5px; }
+    .current strong, .current em { max-width: 100%; overflow-wrap: anywhere; }
+    .current strong { color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: var(--size,25px); line-height: 1.35; font-weight: 650; }
+    .current em { color: #c6d5ca; font-size: calc(var(--size,25px) * .52); line-height: 1.4; font-style: normal; }
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <header class="header" id="drag-handle">
+      <span><span aria-hidden="true">⠿</span><strong>桌面歌词</strong></span>
+      <div class="actions"><button id="close" type="button" aria-label="关闭">×</button></div>
+    </header>
+    <section class="body">
+      <p class="line previous"></p>
+      <div class="current"><strong></strong><em></em></div>
+      <p class="line next"></p>
+    </section>
+  </main>
+  <script>
+    const channel = new BroadcastChannel('echo-desktop-lyrics')
+    const panel = document.querySelector('.panel')
+    const body = document.querySelector('.body')
+    const previous = document.querySelector('.previous')
+    const current = document.querySelector('.current strong')
+    const translation = document.querySelector('.current em')
+    const next = document.querySelector('.next')
+    channel.onmessage = ({ data }) => {
+      if (data?.type !== 'state') return
+      const state = data.payload || {}
+      previous.textContent = state.previous || ''
+      current.textContent = state.current || ''
+      translation.textContent = state.translation || ''
+      translation.hidden = state.options?.showTranslation === false || !state.translation
+      next.textContent = state.next || ''
+      body.style.setProperty('--size', `${state.options?.fontSize || 25}px`)
+      panel.style.opacity = state.options?.opacity || .94
+      document.title = state.title ? `${state.title} · ECHO` : 'ECHO Desktop Lyrics'
+    }
+    document.getElementById('close').addEventListener('click', () => { channel.postMessage({ type: 'close' }); channel.close(); window.close() })
+    let drag = null
+    const handle = document.getElementById('drag-handle')
+    handle.addEventListener('pointerdown', (event) => { drag = { x: event.screenX - window.screenX, y: event.screenY - window.screenY }; handle.setPointerCapture(event.pointerId) })
+    handle.addEventListener('pointermove', (event) => { if (drag) window.moveTo(event.screenX - drag.x, event.screenY - drag.y) })
+    handle.addEventListener('pointerup', () => { drag = null })
+  </script>
+</body>
+</html>

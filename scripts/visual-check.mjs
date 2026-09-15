@@ -68,7 +68,14 @@ async function checkViewport(name, viewport) {
     }
     const afterDrag = await desktopLyrics.boundingBox()
     if (!beforeDrag || !afterDrag || (beforeDrag.x === afterDrag.x && beforeDrag.y === afterDrag.y)) errors.push('desktop: desktop lyrics panel did not move')
+    const popupPromise = page.waitForEvent('popup')
     await desktopLyrics.locator('.desktop-lyrics-header button').first().click()
+    const popup = await popupPromise
+    await popup.waitForLoadState('domcontentloaded')
+    await popup.locator('.panel').waitFor()
+    await popup.waitForFunction(() => Boolean(document.querySelector('.current strong')?.textContent))
+    await popup.close()
+    await desktopLyrics.locator('.desktop-lyrics-header button').nth(1).click()
     await page.locator('.desktop-lyrics-settings').waitFor()
     await page.screenshot({ path: `${outputDir}/desktop-lyrics.png` })
     await page.locator('.desktop-lyrics-check input').uncheck()
